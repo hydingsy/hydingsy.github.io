@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+
+<head>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+    <script src="../../lib/pace/pace.min0ff5.js?v=1.0.2"></script>
+    <link href="../../lib/pace/pace-theme-minimal.min0ff5.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link href="../../lib/fancybox/source/jquery.fancybox8cbb.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+    <link href="../../lib/font-awesome/css/font-awesome.min9efe.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+    <link href="../../css/mainf99e.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32x32-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/favicon-16x16-nextf99e.png?v=5.1.4">
+
+
+    <link rel="mask-icon" href="../../images/logof99e.svg?v=5.1.4" color="#222">
+
+
+
+
+
+    <meta name="keywords" content="算法笔记,图论,网络流,最大流," />
+
+
+
+
+
+    <link rel="alternate" href="../../atom.xml" title="Siyuan's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+    <meta name="description" content="最大流，指一张网络图中的最大流量。">
+    <meta name="keywords" content="算法笔记,图论,网络流,最大流">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「算法笔记」网络流 - 最大流">
+    <meta property="og:url" content="http://hydingsy.github.io/articles/algorithm-Network-Flow-Maximum-Flow/index.html">
+    <meta property="og:site_name" content="Siyuan&#39;s Blog">
+    <meta property="og:description" content="最大流，指一张网络图中的最大流量。">
+    <meta property="og:locale" content="zh-Hans">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_1.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_2.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_3.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_4.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_5.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_6.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_7.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_8.png">
+    <meta property="og:updated_time" content="2019-02-09T05:32:20.389Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="「算法笔记」网络流 - 最大流">
+    <meta name="twitter:description" content="最大流，指一张网络图中的最大流量。">
+    <meta name="twitter:image" content="http://hydingsy.github.io/images/Network-Flow-Maximum-Flow_1.png">
+
+
+
+    <script type="text/javascript" id="hexo.configurations">
+        var NexT = window.NexT || {};
+        var CONFIG = {
+            root: '/',
+            scheme: 'Pisces',
+            version: '5.1.4',
+            sidebar: {
+                "position": "left",
+                "display": "post",
+                "offset": 12,
+                "b2t": false,
+                "scrollpercent": true,
+                "onmobile": false
+            },
+            fancybox: true,
+            tabs: true,
+            motion: {
+                "enable": true,
+                "async": false,
+                "transition": {
+                    "post_block": "fadeIn",
+                    "post_header": "slideDownIn",
+                    "post_body": "slideDownIn",
+                    "coll_header": "slideLeftIn",
+                    "sidebar": "slideUpIn"
+                }
+            },
+            duoshuo: {
+                userId: '0',
+                author: '博主'
+            },
+            algolia: {
+                applicationID: '',
+                apiKey: '',
+                indexName: '',
+                hits: {
+                    "per_page": 10
+                },
+                labels: {
+                    "input_placeholder": "Search for Posts",
+                    "hits_empty": "We didn't find any results for the search: ${query}",
+                    "hits_stats": "${hits} results found in ${time} ms"
+                }
+            }
+        };
+    </script>
+
+
+
+    <link rel="canonical" href="http://hydingsy.github.io/articles/algorithm-Network-Flow-Maximum-Flow/" />
+
+
+
+
+
+    <title>「算法笔记」网络流 - 最大流 | Siyuan's Blog</title>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+
+
+
+
+
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <div class="container sidebar-position-left page-post-detail">
+        <div class="headband"></div>
+        <a href="https://github.com/hydingsy" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+        <style>
+            .github-corner:hover .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+            
+            @keyframes octocat-wave {
+                0%,
+                100% {
+                    transform: rotate(0)
+                }
+                20%,
+                60% {
+                    transform: rotate(-25deg)
+                }
+                40%,
+                80% {
+                    transform: rotate(10deg)
+                }
+            }
+            
+            @media (max-width:500px) {
+                .github-corner:hover .octo-arm {
+                    animation: none
+                }
+                .github-corner .octo-arm {
+                    animation: octocat-wave 560ms ease-in-out
+                }
+            }
+        </style>
+        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+            <div class="header-inner">
+                <div class="site-brand-wrapper">
+                    <div class="site-meta ">
+
+
+                        <div class="custom-logo-site-title">
+                            <a href="../../index.html" class="brand" rel="start">
+                                <span class="logo-line-before"><i></i></span>
+                                <span class="site-title">Siyuan's Blog</span>
+                                <span class="logo-line-after"><i></i></span>
+                            </a>
+                        </div>
+
+                        <p class="site-subtitle">你强归你强，我永不示弱！</p>
+
+                    </div>
+
+                    <div class="site-nav-toggle">
+                        <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+                    </div>
+                </div>
+
+                <nav class="site-nav">
+
+
+
+                    <ul id="menu" class="menu">
+
+
+                        <li class="menu-item menu-item-home">
+                            <a href="../../index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-home"></i> <br /> 首页
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-about">
+                            <a href="../../about/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-user"></i> <br /> 关于
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-archives">
+                            <a href="../../archives/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-archive"></i> <br /> 归档
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-tags">
+                            <a href="../../tags/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-tags"></i> <br /> 标签
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-friends">
+                            <a href="../../friends/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-users"></i> <br /> 友链
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-resources">
+                            <a href="../../resources/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-link"></i> <br /> 资源
+                            </a>
+                        </li>
+
+
+
+                        <li class="menu-item menu-item-search">
+
+                            <a href="javascript:;" class="popup-trigger">
+
+
+                                <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+                    <div class="site-search">
+
+                        <div class="popup search-popup local-search-popup">
+                            <div class="local-search-header clearfix">
+                                <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+                                <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+                                <div class="local-search-input-wrapper">
+                                    <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+                                </div>
+                            </div>
+                            <div id="local-search-result"></div>
+                        </div>
+
+
+
+                    </div>
+
+                </nav>
+
+
+
+            </div>
+        </header>
+
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+
+
+                        <div id="posts" class="posts-expand">
+
+
+
+
+
+
+
+
+                            <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+
+
+
+                                <div class="post-block">
+                                    <link itemprop="mainEntityOfPage" href="http://hydingsy.github.io/articles/algorithm-Network-Flow-Maximum-Flow/">
+
+                                    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.png">
+    </span>
+
+                                    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyuan's Blog">
+    </span>
+
+
+                                    <header class="post-header">
+
+
+
+                                        <h1 class="post-title" itemprop="name headline">「算法笔记」网络流 - 最大流</h1>
+
+
+                                        <div class="post-meta">
+
+                                            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+
+                                            <span class="post-meta-item-text">发表于</span>
+
+                                            <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T00:00:00+08:00">
+                2018-12-05
+              </time>
+
+
+
+
+
+                                            </span>
+
+
+
+
+
+                                            <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                                            <a href="index.html#comments" itemprop="discussionUrl">
+                                                <span class="post-comments-count valine-comment-count" data-xid="/articles/algorithm-Network-Flow-Maximum-Flow/" itemprop="commentCount"></span>
+                                            </a>
+                                            </span>
+
+
+
+
+
+                                            <span id="/articles/algorithm-Network-Flow-Maximum-Flow/" class="leancloud_visitors" data-flag-title="「算法笔记」网络流 - 最大流">
+               <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+
+                                            <span class="post-meta-item-text">阅读次数&#58;</span>
+
+                                            <span class="leancloud-visitors-count"></span>
+                                            </span>
+
+
+
+
+
+                                            <div class="post-wordcount">
+
+
+                                                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+
+                                                <span class="post-meta-item-text">字数统计&#58;</span>
+
+                                                <span title="字数统计">
+                  3.5k 字
+                </span>
+
+
+
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </header>
+
+
+
+
+
+                                    <div class="post-body" itemprop="articleBody">
+
+
+
+
+
+                                        <blockquote class="blockquote-center">最大流，指一张网络图中的最大流量。</blockquote>
+
+                                        <a id="more"></a>
+                                        <h2 id="网络流系列文章">
+                                            <a href="#网络流系列文章" class="headerlink" title="网络流系列文章"></a>网络流系列文章</h2>
+                                        <ol>
+                                            <li><a href="https://hydingsy.github.io/articles/algorithm-Network-Flow-Maximum-Flow/" target="_blank" rel="noopener">最大流</a></li>
+                                            <li><a href="https://hydingsy.github.io/articles/algorithm-Network-Flow-Minimum-Cut/" target="_blank" rel="noopener">最小割</a></li>
+                                            <li><a href="https://hydingsy.github.io/articles/algorithm-Network-Flow-Cost-Flow/" target="_blank" rel="noopener">费用流</a></li>
+                                            <li>有上下界的网络流（未学习）</li>
+                                        </ol>
+                                        <hr>
+                                        <h2 id="概念">
+                                            <a href="#概念" class="headerlink" title="概念"></a>概念</h2>
+                                        <h3 id="网络流">
+                                            <a href="#网络流" class="headerlink" title="网络流"></a>网络流</h3>
+                                        <p>网络流是指给定一个有向图，其中有两个特殊的点：<strong>源点</strong> $s$（Source）和<strong>汇点</strong> $t$（Sink）；每条边都有一个指定的流量上限，下文均称之为<strong>容量</strong>（Capacity），即经过这条边的流量不能超过容量，这样的图被称为网络流图。同时，除了源点和汇点外，所有点的入流和出流都相等，源点只有流出的流，汇点只有流入的流，网络流就是从
+                                            $s$ 到 $t$ 的一个<strong>可行流</strong>。</p>
+                                        <h3 id="可行流">
+                                            <a href="#可行流" class="headerlink" title="可行流"></a>可行流</h3>
+                                        <p>定义 $c(u,v)$ 表示边 $(u,v)$ 的容量，$f(u,v)$ 表示边 $(u,v)$ 的流量。如果满足 $0\le f(u,v)\le c(u,v)$，则称 $f(u,v)$ 为边 $(u,v)$ 上的流量。</p>
+                                        <p>如果有一组流量满足：源点 $s$ 的流出量等于整个网络的流量，汇点 $t$ 的流入量等于整个网络的流量，除了任意一个不是 $s$ 或 $t$ 的点的总流入量等于总流出量。那么整个网络中的流量被称为一个可行流。</p>
+                                        <h3 id="最大流">
+                                            <a href="#最大流" class="headerlink" title="最大流"></a>最大流</h3>
+                                        <p>在所有可行流中，最大流指其中流量最大的一个流的流量。</p>
+                                        <hr>
+                                        <h2 id="定义">
+                                            <a href="#定义" class="headerlink" title="定义"></a>定义</h2>
+                                        <p>我们定义（部分定义在上文有涉及）：</p>
+                                        <ul>
+                                            <li>源点 $s$：只有流出量的点。</li>
+                                            <li>汇点 $t$：只有流入量的点。</li>
+                                            <li>容量 $c$：$c(u,v)$ 表示边 $(u,v)$ 上的容量。</li>
+                                            <li>流量 $f$：$f(u,v)$ 表示边 $(u,v)$ 上的流量。</li>
+                                            <li>残量 $w$：$w(u,v)$ 表示边 $(u,v)$ 上的残量（显然有 $w(u,v)=c(u,v)-f(u,v)$）。</li>
+                                        </ul>
+                                        <hr>
+                                        <h2 id="性质">
+                                            <a href="#性质" class="headerlink" title="性质"></a>性质</h2>
+                                        <h3 id="容量限制">
+                                            <a href="#容量限制" class="headerlink" title="容量限制"></a>容量限制</h3>
+                                        <p>对于任何一条边，都有 $0\le f(u,v)\le c(u,v)$。</p>
+                                        <h3 id="斜对称性">
+                                            <a href="#斜对称性" class="headerlink" title="斜对称性"></a>斜对称性</h3>
+                                        <p>对于任何一条边，都有 $f(u,v)=-f(v,u)$。即从 $u$ 到 $v$ 的流量一定等于从 $v$ 到 $u$ 的流量的相反数。</p>
+                                        <h3 id="流守恒性">
+                                            <a href="#流守恒性" class="headerlink" title="流守恒性"></a>流守恒性</h3>
+                                        <p>对于任何一个点 $u$，如果满足 $u\neq s$ 并且 $u\neq t$，那么一定有 $\sum f(u,v)=0$，即 $u$ 到相邻节点的流量之和为 $0$。因为 $u$ 本身不会制造和消耗流量。</p>
+                                        <hr>
+                                        <h2 id="求解">
+                                            <a href="#求解" class="headerlink" title="求解"></a>求解</h2>
+                                        <h3 id="増广路">
+                                            <a href="#増广路" class="headerlink" title="増广路"></a>増广路</h3>
+                                        <p>网络流的所有算法都基于<strong>増广路</strong>的思想，接下来首先介绍一下増广路思想。</p>
+                                        <ol>
+                                            <li>找到一条从 $s$ 到 $t$ 的路径，使得路径上的每一条边都有 $w(u,v)&gt;0$ 即残量大于 $0$。注意：这里是严格 $&gt;$ 而不是 $\ge$，这意味着这条边还可以<strong>分配流量</strong>。这条路径就被叫做増广路。</li>
+                                            <li>找到这条路径上最小的 $w(u,v)$，记为 $flow$。将这条路径上的每一条边的 $w(u,v)$ 减去 $flow$。</li>
+                                            <li>重复上述过程，直到找不到増广路为止。</li>
+                                        </ol>
+                                        <blockquote>
+                                            <p><strong>注意</strong>：其实上述方法并不是正确的，但这是一个非常重要的分析过程，因此请读者仔细阅读！</p>
+                                        </blockquote>
+                                        <p>我们可以根据这个过程在下面这张图中模拟一遍。</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_1.png" alt=""></p>
+                                        <p>如果我们把每条边的的信息用<strong>残量 / 容量</strong>表示出来，可以得到下图：</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_2.png" alt=""></p>
+                                        <p>假设我们第一次找到的増广路为 $1-2-3-4$，那么我们把这条路径上的边的 $w(u,v)$ 减去 $\min\{f(u,v)\}$ 即 $1$，得到下图：</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_3.png" alt=""></p>
+                                        <p>然后呢……我们发现已经没有増广路了，此时算出来的“最大流”为 $1$！但是我们可以手动计算一下，这张图的最大流其实是 $2$！这个最大流的路径为 $1-2-4$（流量为 $1$）和 $1-3-4$（流量为 $1$）。</p>
+                                        <p>因此，我们可以发现这样的过程是错误的。原因就是増广路在一定意义上是<strong>有顺序的</strong>，说白了就是没有给它<strong>反悔</strong>的机会。所以我们要引入<strong>反向边</strong>的概念。</p>
+                                        <h3 id="反向边">
+                                            <a href="#反向边" class="headerlink" title="反向边"></a>反向边</h3>
+                                        <h4 id="改进">
+                                            <a href="#改进" class="headerlink" title="改进"></a>改进</h4>
+                                        <p>通过上文的分析我们已经知道，当我们在寻找増广路的时候，找到的并不一定是最优解。如果我们对正向边的 $w(u,v)$ 减去 $flow$ 的同时，将对应的反向边的 $w(v,u)$ 加上 $flow$，我们就相当于可以<strong>反悔</strong>从这条边流过。</p>
+                                        <p>那么我们可以建立反向边，初始时每条边的 $w(u,v)=c(u,v)$，它的反向边的 $w(v,u)=0$（显然反向边不能有流量，因此残量为 $0$）。</p>
+                                        <p>接下来再看一下上面那个例子，我们只用 $w(u,v)$ 来表示每条边（包括反向边）的信息：</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_4.png" alt=""></p>
+                                        <p>接下来开始寻找増广路，假如还是 $1-2-3-4$ 这条路径。</p>
+                                        <p>我们需要把 $w(1,2)$，$w(2,3)$，$w(3,4)$ 减少 $1$，同时把反向边的 $w(2,1)$，$w(3,2)$，$w(4,3)$ 增加 $1$。那么可以得到下图：</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_5.png" alt=""></p>
+                                        <p>继续从 $s$ 开始寻找増广路（不需要考虑<strong>边的类型</strong>），显然可以发现路径 $1-3-2-4$，其中 $flow=1$。更新边的信息，得到下图：</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_6.png" alt=""></p>
+                                        <p>此时我们发现没有増广路了，为了直观观察这个网络，我们去掉反向边，显然我们求出的最大流为 $2$！</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_7.png" alt=""></p>
+                                        <h4 id="正确性">
+                                            <a href="#正确性" class="headerlink" title="正确性"></a>正确性</h4>
+                                        <p>当我们第二次増广边 $(2,3)$ 走这条反向边 $(3,2)$ 时，把 $(2,3)$ 和 $(3,2)$ 的流量抵消了，相当于把 $(2,3)$ 这条正向边的流量给<strong>退了回去</strong>使得可以不走 $(2,3)$ 这条边。</p>
+                                        <p>如果反向边 $(v,u)$ 的流量不能完全抵消正向边 $(u,v)$，那么意味着从 $u$ 开始还可以流一部分流量到 $v$，这样也是允许的。</p>
+                                        <h4 id="小技巧">
+                                            <a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4>
+                                        <p><strong>如何快速找到反向边？</strong>如果使用邻接表存图，那么可以对边从 $2$ 开始编号，那么下标为 $i$ 的边的反向边就是 $i\ \text{XOR}\ 1$。</p>
+                                        <h3 id="思路总结">
+                                            <a href="#思路总结" class="headerlink" title="思路总结"></a>思路总结</h3>
+                                        <ol>
+                                            <li>最初这个网络的流量为 $0$，称为<strong>零流</strong>。</li>
+                                            <li>找到一条从 $s$ 到 $t$ 的路径，使得路径上的每一条边都有 $w(u,v)&gt;0$ 即残量大于 $0$。注意：这里是严格 $&gt;$ 而不是 $\ge$，这意味着这条边还可以<strong>分配流量</strong>。这条路径就被叫做増广路。</li>
+                                            <li>找到这条路径上最小的 $w(u,v)$，记为 $flow$。</li>
+                                            <li>将这条路径上的每一条边的 $w(u,v)$ 减去 $flow$，同时将反向边 $(v,u)$ 的 $w(v,u)$ 加上 $flow$。</li>
+                                            <li>重复上述过程，直到找不到増广路为止，此时的流量就是最大流。</li>
+                                        </ol>
+                                        <p>这个算法基于<strong>増广路定理</strong>（Augmenting Path Theorem）：网络达到最大流当且仅当残留网络中没有増广路。<del>然而我不会证明 QAQ</del></p>
+                                        <hr>
+                                        <h2 id="算法">
+                                            <a href="#算法" class="headerlink" title="算法"></a>算法</h2>
+                                        <p>求最大流有若干种算法，此处介绍其中的两种：$\text{Edmonds-Karp}$ 和 $\text{Dinic}$。</p>
+                                        <h3 id="Edmonds-Karp">
+                                            <a href="#Edmonds-Karp" class="headerlink" title="Edmonds-Karp"></a>Edmonds-Karp</h3>
+                                        <h4 id="实现过程">
+                                            <a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h4>
+                                        <p>简称 $\text{EK}$ 算法，每次用 $\text{BFS}$ 求出一条増广路径，通过记录每个点的前驱和这条边的编号来记录下这条路径。可以说是对増广路思路的完全模拟。</p>
+                                        <p>但是 $\text{EK}$ 在某些情况下会被卡得很慢。假如有下面这张图：</p>
+                                        <p><img src="../../images/Network-Flow-Maximum-Flow_8.png" alt=""></p>
+                                        <p>其中 $w(u,v)=1$，其余正向边的 $w(u,v)=100$。如果第一次増广路的策略不恰当，找到了 $1-2-3-4$，那么 $w(2,3)=0$，$w(3,2)=1$。接下来又会找到増广路经 $1-3-2-4$，然后又是 $1-2-3-4$……</p>
+                                        <p>然后显然最大流路径就是 $1-2-4$（流量为 $100$）和 $1-3-4$（流量为 $100$），但是如果策略不当，就会这样不断这样増广下去，导致复杂度会爆炸！</p>
+                                        <h4 id="复杂度">
+                                            <a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h4>
+                                        <p>$\text{EK}$ 算法的时间复杂度为 $O(nm^2)$。我们可以证明最多需要 $O(nm)$ 次増广可以达到最大流，每次増广的复杂度为 $O(m)$。绝大多数情况下这个复杂度都跑不满。</p>
+                                        <h4 id="代码">
+                                            <a href="#代码" class="headerlink" title="代码"></a>代码</h4>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1e4</span>+<span class="number">5</span>,M=<span class="number">2e5</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,s,t,tot=<span class="number">1</span>,lnk[N],ter[M],nxt[M],val[M],pre[N],idx[N];</span><br><span class="line"><span class="keyword">bool</span> vis[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    ter[++tot]=v,nxt[tot]=lnk[u],lnk[u]=tot,val[tot]=w;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(pre,<span class="number">0</span>,<span class="keyword">sizeof</span>(pre));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    q.push(s),vis[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> u=q.front(); q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=lnk[u];i;i=nxt[i]) &#123;</span><br><span class="line">            <span class="keyword">int</span> v=ter[i];</span><br><span class="line">            <span class="keyword">if</span>(!vis[v]&amp;&amp;val[i]) &#123;</span><br><span class="line">                pre[v]=u,idx[v]=i,q.push(v),vis[v]=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(v==t) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">EK</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(bfs(s,t)) &#123;</span><br><span class="line">        <span class="keyword">int</span> mn=<span class="number">1</span>&lt;&lt;<span class="number">30</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=t;i!=s;i=pre[i]) mn=<span class="built_in">std</span>::min(mn,val[idx[i]]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=t;i!=s;i=pre[i]) &#123;</span><br><span class="line">            <span class="keyword">int</span> x=idx[i];</span><br><span class="line">            val[x]-=mn,val[x^<span class="number">1</span>]+=mn;</span><br><span class="line">        &#125;</span><br><span class="line">        ans+=mn;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>,&amp;n,&amp;m,&amp;s,&amp;t);</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> u,v,w;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">        add(u,v,w),add(v,u,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,EK(s,t));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="Dinic">
+                                            <a href="#Dinic" class="headerlink" title="Dinic"></a>Dinic</h3>
+                                        <h4 id="实现过程-1">
+                                            <a href="#实现过程-1" class="headerlink" title="实现过程"></a>实现过程</h4>
+                                        <p>我们发现 $\text{EK}$ 在某些情况下会很低效，我们有另一个算法 $\text{Dinic}$。它引入了<strong>分层图</strong>的概念，具体的方法如下：</p>
+                                        <ol>
+                                            <li>
+                                                <p>为了避免走重复的路径，从 $s$ 开始 $\text{BFS}$ 对图<strong>分层</strong>，将整个图分为若干层，其中 $s$ 是第 $1$ 层。如果一条边的残量为 $0$，那么忽略这条无法増广的边。如果 $t$ 的层数不为 $0$，那么意味着存在増广路径。</p>
+                                            </li>
+                                            <li>
+                                                <p>如果存在増广路，那么从 $s$ 开始进行 $\text{DFS}$ 寻找从源点到汇点的増广路，注意此处増广必须要按照<strong>图的层次</strong>来遍历。每次下传<strong>当前流量</strong> $flow$（初始流量认为是无穷大）。</p>
+                                                <p>设 $dep_i$ 表示 $i$ 的层次，$ans$ 代表当前从 $u$ 可以流的流量，对于当前点 $u$ 相连的点 $v$，如果 $dep_v=dep_u+1$ 并且 $w(u,v)&gt;0$，那么可以増广。此时下传的 $flow$ 应为 $\min(w(u,v),flow-ans)$，其中 $flow-ans$ 代表从 $u$ 还可以流的流量（已经有 $ans$ 的流量从 $v’$ 流出去了）。当
+                                                    $ans\ge flow$ 时意味着没有可以流的流量了，应该<strong>退出増广</strong>。</p>
+                                                <p>如果该 $\text{DFS}$ 找到的可以増广的流量为 $0$，表示增广失败，跳过这条边。否则将 $w(u,v)$ 减去増广的流量，将 $w(v,u)$ 和 $ans$ 加上相同的值。</p>
+                                                <p><strong>小剪枝</strong>：如果遍历完所有的 $v$ 后 $ans&lt;flow$，意味着已经从 $u$ 流出了所有可以増广的流量，即 $u$ 已经<strong>满流</strong>了，此时需要将 $dep_u$ 设为 $-1$，防止再次从这个点増广。</p>
+                                            </li>
+                                        </ol>
+                                        <h4 id="优化">
+                                            <a href="#优化" class="headerlink" title="优化"></a>优化</h4>
+                                        <p>$\text{Dinic}$ 算法还有一个优化，被称为<strong>当前弧优化</strong>，即每次 $\text{DFS}$ 増广时不是从 $u$ 出发的第 $1$ 个点开始，而是用一个 $cnr$ 数组记录点 $u$ 増广到了哪条边，从这条边开始増广，以此来进一步加速。</p>
+                                        <h4 id="复杂度-1">
+                                            <a href="#复杂度-1" class="headerlink" title="复杂度"></a>复杂度</h4>
+                                        <p>$\text{Dinic}$ 算法的时间复杂度为 $O(n^2m)$。我们可以证明最多需要建立 $O(n)$ 个层次图，每次建立层次图的复杂度为 $O(m)$。接下来分析 $\text{DFS}$ 的复杂度，每次最多増广 $O(m)$ 次，每次修改流量的复杂度为 $O(n)$，所以 $\text{DFS}$ 的复杂度为 $O(nm)$。再加上 $O(n)$ 个层次图，总复杂度为 $O(n^2m)$。绝大多数情况下这个复杂度都跑不满。</p>
+                                        <p>对于 $\text{Dinic}$ 算法的复杂度，有如下 $3$ 种情况：</p>
+                                        <ol>
+                                            <li>一般的网络图：$O(n^2m)$</li>
+                                            <li>单位容量的图：$O(\min(\sqrt m,n^{\frac{2}{3}})\cdot m)$</li>
+                                            <li>二分图：$O(m\sqrt n)$</li>
+                                        </ol>
+                                        <h4 id="代码-1">
+                                            <a href="#代码-1" class="headerlink" title="代码"></a>代码</h4>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1e4</span>+<span class="number">5</span>,M=<span class="number">2e5</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,s,t,tot=<span class="number">1</span>,lnk[N],ter[M],nxt[M],val[M],dep[N],cnr[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    ter[++tot]=v,nxt[tot]=lnk[u],lnk[u]=tot,val[tot]=w;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    add(u,v,w),add(v,u,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">0</span>,<span class="keyword">sizeof</span>(dep));</span><br><span class="line">    <span class="built_in">memcpy</span>(cnr,lnk,<span class="keyword">sizeof</span>(lnk));</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    q.push(s),dep[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> u=q.front(); q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=lnk[u];i;i=nxt[i]) &#123;</span><br><span class="line">            <span class="keyword">int</span> v=ter[i];</span><br><span class="line">            <span class="keyword">if</span>(val[i]&amp;&amp;!dep[v]) q.push(v),dep[v]=dep[u]+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dep[t];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> t,<span class="keyword">int</span> flow)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u==t) <span class="keyword">return</span> flow;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=cnr[u];i&amp;&amp;ans&lt;flow;i=nxt[i]) &#123;</span><br><span class="line">        cnr[u]=i;</span><br><span class="line">        <span class="keyword">int</span> v=ter[i];</span><br><span class="line">        <span class="keyword">if</span>(val[i]&amp;&amp;dep[v]==dep[u]+<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> x=dfs(v,t,<span class="built_in">std</span>::min(val[i],flow-ans));</span><br><span class="line">            <span class="keyword">if</span>(x) val[i]-=x,val[i^<span class="number">1</span>]+=x,ans+=x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ans&lt;flow) dep[u]=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dinic</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(bfs(s,t)) &#123;</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">        <span class="keyword">while</span>((x=dfs(s,t,<span class="number">1</span>&lt;&lt;<span class="number">30</span>))) ans+=x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>,&amp;n,&amp;m,&amp;s,&amp;t);</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> u,v,w;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">        addedge(u,v,w);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,dinic(s,t));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <hr>
+                                        <h2 id="习题">
+                                            <a href="#习题" class="headerlink" title="习题"></a>习题</h2>
+                                        <ul>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P3376" target="_blank" rel="noopener">「Luogu 3376」【模板】网络最大流</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4722" target="_blank" rel="noopener">「Luogu 4722」【模板】最大流 加强版 / 预流推进</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P1231" target="_blank" rel="noopener">「Luogu 1231」教辅的组成</a></li>
+                                        </ul>
+                                        <h2 id="网络流-24-题">
+                                            <a href="#网络流-24-题" class="headerlink" title="网络流 24 题"></a>网络流 24 题</h2>
+                                        <ul>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P1251" target="_blank" rel="noopener">「Luogu 1251」餐巾计划问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2754" target="_blank" rel="noopener">「Luogu 2754」家园</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2756" target="_blank" rel="noopener">「Luogu 2756」飞行员配对方案问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2761" target="_blank" rel="noopener">「Luogu 2761」软件补丁问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2762" target="_blank" rel="noopener">「Luogu 2762」太空飞行计划问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2763" target="_blank" rel="noopener">「Luogu 2763」试题库问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2764" target="_blank" rel="noopener">「Luogu 2764」最小路径覆盖问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2765" target="_blank" rel="noopener">「Luogu 2765」魔术球问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2766" target="_blank" rel="noopener">「Luogu 2766」最长不下降子序列问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2770" target="_blank" rel="noopener">「Luogu 2770」航空路线问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2774" target="_blank" rel="noopener">「Luogu 2774」方格取数问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P2775" target="_blank" rel="noopener">「Luogu 2775」机器人路径规划问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P3254" target="_blank" rel="noopener">「Luogu 3254」圆桌问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P3355" target="_blank" rel="noopener">「Luogu 3355」骑士共存问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P3356" target="_blank" rel="noopener">「Luogu 3356」火星探险问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P3357" target="_blank" rel="noopener">「Luogu 3357」最长k可重线段集问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P3358" target="_blank" rel="noopener">「Luogu 3358」最长k可重区间集问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4009" target="_blank" rel="noopener">「Luogu 4009」汽车加油行驶问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4011" target="_blank" rel="noopener">「Luogu 4011」孤岛营救问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4012" target="_blank" rel="noopener">「Luogu 4012」深海机器人问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4013" target="_blank" rel="noopener">「Luogu 4013」数字梯形问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4014" target="_blank" rel="noopener">「Luogu 4014」分配问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4015" target="_blank" rel="noopener">「Luogu 4015」运输问题</a></li>
+                                            <li><a href="https://www.luogu.org/problemnew/show/P4016" target="_blank" rel="noopener">「Luogu 4016」负载平衡问题</a></li>
+                                        </ul>
+
+
+                                    </div>
+
+
+
+                                    <div>
+
+
+
+                                    </div>
+
+
+
+
+
+                                    <div>
+                                        <ul class="post-copyright">
+                                            <li class="post-copyright-author">
+                                                <strong>本文作者：</strong> Siyuan
+                                            </li>
+                                            <li class="post-copyright-link">
+                                                <strong>本文链接：</strong>
+                                                <a href="http://hydingsy.github.io/articles/algorithm-Network-Flow-Maximum-Flow/" title="「算法笔记」网络流 - 最大流">http://hydingsy.github.io/articles/algorithm-Network-Flow-Maximum-Flow/</a>
+                                            </li>
+                                            <li class="post-copyright-license">
+                                                <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+
+                                    <footer class="post-footer">
+
+                                        <div class="post-tags">
+
+                                            <a href="../../tags/%e7%ae%97%e6%b3%95%e7%ac%94%e8%ae%b0/index.html" rel="tag"><i class="fa fa-tag"></i> 算法笔记</a>
+
+                                            <a href="../../tags/%e5%9b%be%e8%ae%ba/index.html" rel="tag"><i class="fa fa-tag"></i> 图论</a>
+
+                                            <a href="../../tags/%e7%bd%91%e7%bb%9c%e6%b5%81/index.html" rel="tag"><i class="fa fa-tag"></i> 网络流</a>
+
+                                            <a href="../../tags/%e6%9c%80%e5%a4%a7%e6%b5%81/index.html" rel="tag"><i class="fa fa-tag"></i> 最大流</a>
+
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="post-nav">
+                                            <div class="post-nav-next post-nav-item">
+
+                                                <a href="../problem-Codeforces-1029F-Multicolored-Markers/index.html" rel="next" title="「Codeforces 1029F」Multicolored Markers">
+                                                    <i class="fa fa-chevron-left"></i> 「Codeforces 1029F」Multicolored Markers
+                                                </a>
+
+                                            </div>
+
+                                            <span class="post-nav-divider"></span>
+
+                                            <div class="post-nav-prev post-nav-item">
+
+                                                <a href="../problem-SPOJ-839-OPTM/index.html" rel="prev" title="「SPOJ 839」OPTM - Optimal Marks">
+                「SPOJ 839」OPTM - Optimal Marks <i class="fa fa-chevron-right"></i>
+              </a>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </footer>
+                                </div>
+
+
+
+                            </article>
+
+
+
+                            <div class="post-spread">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="comments" id="comments">
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="sidebar-toggle">
+                    <div class="sidebar-toggle-line-wrap">
+                        <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+                    </div>
+                </div>
+
+                <aside id="sidebar" class="sidebar">
+
+                    <div class="sidebar-inner">
+
+
+
+
+                        <ul class="sidebar-nav motion-element">
+                            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+                                文章目录
+                            </li>
+                            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+                                站点概览
+                            </li>
+                        </ul>
+
+
+                        <section class="site-overview-wrap sidebar-panel">
+                            <div class="site-overview">
+                                <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+
+                                    <img class="site-author-image" itemprop="image" src="../../images/avatar.png" alt="Siyuan" />
+
+                                    <p class="site-author-name" itemprop="name">Siyuan</p>
+                                    <p class="site-description motion-element" itemprop="description">Chasing Dream OIer</p>
+                                </div>
+
+                                <nav class="site-state motion-element">
+
+
+                                    <div class="site-state-item site-state-posts">
+
+                                        <a href="../../archives/index.html">
+
+                                            <span class="site-state-item-count">165</span>
+                                            <span class="site-state-item-name">日志</span>
+                                        </a>
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="site-state-item site-state-tags">
+                                        <a href="../../tags/index-2.html">
+                                            <span class="site-state-item-count">147</span>
+                                            <span class="site-state-item-name">标签</span>
+                                        </a>
+                                    </div>
+
+
+                                </nav>
+
+
+                                <div class="feed-link motion-element">
+                                    <a href="../../atom.xml" rel="alternate">
+                                        <i class="fa fa-rss"></i> RSS
+                                    </a>
+                                </div>
+
+
+
+                                <div class="links-of-author motion-element">
+
+                                    <span class="links-of-author-item">
+                    <a href="https://github.com/hydingsy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://codeforces.com/profile/SiyuanQAQ" target="_blank" title="Codeforces">
+                      
+                        <i class="fa fa-fw fa-code"></i>Codeforces</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=294873684" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="mailto:294873684@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/dingsiyuan" target="_blank" title="Zhihu">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>Zhihu</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://t.me/hydingsy" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </section>
+
+
+                        <!--noindex-->
+                        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+                            <div class="post-toc">
+
+
+
+
+
+
+                                <div class="post-toc-content">
+                                    <ol class="nav">
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#网络流系列文章"><span class="nav-number">1.</span> <span class="nav-text">网络流系列文章</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#网络流"><span class="nav-number">2.1.</span> <span class="nav-text">网络流</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#可行流"><span class="nav-number">2.2.</span> <span class="nav-text">可行流</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#最大流"><span class="nav-number">2.3.</span> <span class="nav-text">最大流</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">3.</span> <span class="nav-text">定义</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">4.</span> <span class="nav-text">性质</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#容量限制"><span class="nav-number">4.1.</span> <span class="nav-text">容量限制</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#斜对称性"><span class="nav-number">4.2.</span> <span class="nav-text">斜对称性</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#流守恒性"><span class="nav-number">4.3.</span> <span class="nav-text">流守恒性</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#求解"><span class="nav-number">5.</span> <span class="nav-text">求解</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#増广路"><span class="nav-number">5.1.</span> <span class="nav-text">増广路</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#反向边"><span class="nav-number">5.2.</span> <span class="nav-text">反向边</span></a>
+                                                    <ol class="nav-child">
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#改进"><span class="nav-number">5.2.1.</span> <span class="nav-text">改进</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#正确性"><span class="nav-number">5.2.2.</span> <span class="nav-text">正确性</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#小技巧"><span class="nav-number">5.2.3.</span> <span class="nav-text">小技巧</span></a></li>
+                                                    </ol>
+                                                </li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#思路总结"><span class="nav-number">5.3.</span> <span class="nav-text">思路总结</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">6.</span> <span class="nav-text">算法</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#Edmonds-Karp"><span class="nav-number">6.1.</span> <span class="nav-text">Edmonds-Karp</span></a>
+                                                    <ol class="nav-child">
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#实现过程"><span class="nav-number">6.1.1.</span> <span class="nav-text">实现过程</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#复杂度"><span class="nav-number">6.1.2.</span> <span class="nav-text">复杂度</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">6.1.3.</span> <span class="nav-text">代码</span></a></li>
+                                                    </ol>
+                                                </li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#Dinic"><span class="nav-number">6.2.</span> <span class="nav-text">Dinic</span></a>
+                                                    <ol class="nav-child">
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#实现过程-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">实现过程</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#优化"><span class="nav-number">6.2.2.</span> <span class="nav-text">优化</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#复杂度-1"><span class="nav-number">6.2.3.</span> <span class="nav-text">复杂度</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-number">6.2.4.</span> <span class="nav-text">代码</span></a></li>
+                                                    </ol>
+                                                </li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#习题"><span class="nav-number">7.</span> <span class="nav-text">习题</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#网络流-24-题"><span class="nav-number">8.</span> <span class="nav-text">网络流 24 题</span></a></li>
+                                    </ol>
+                                </div>
+
+
+                            </div>
+                        </section>
+                        <!--/noindex-->
+
+
+
+
+                    </div>
+                </aside>
+
+
+
+            </div>
+        </main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+                    <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+                    <span class="author" itemprop="copyrightHolder">Siyuan</span>
+
+
+                    <span class="post-meta-divider">|</span>
+                    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+
+                    <span class="post-meta-item-text">Site words total count&#58;</span>
+
+                    <span title="Site words total count">145.4k</span>
+
+                </div>
+
+
+                <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io/">Hexo</a> 强力驱动</div>
+
+
+
+                <span class="post-meta-divider">|</span>
+
+
+
+                <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+                <div class="busuanzi-count">
+                    <script async src="../../../busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+                    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+                    <i class="fa fa-eye"></i>
+                    </span>
+
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </footer>
+
+
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i>
+
+            <span id="scrollpercent"><span>0</span>%</span>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+            window.Promise = null;
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery/index62ba.js?v=2.1.3"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.minc924.js?v=1.0.6"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyloada045.js?v=1.9.7"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.ui.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack8cbb.js?v=2.1.5"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/utilsf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/motionf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/affixf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/schemes/piscesf99e.js?v=5.1.4"></script>
+
+
+
+
+    <script type="text/javascript" src="../../js/src/scrollspyf99e.js?v=5.1.4"></script>
+    <script type="text/javascript" src="../../js/src/post-detailsf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/bootstrapf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/3.0.4/av-min.js_%3b%20filename_%3dutf-8%27%27av-min.js"></script>
+    <script src="../../../unpkg.com/valine%401.4.14/dist/Valine.min.js"></script>
+
+    <script type="text/javascript">
+        var GUEST = ['nick', 'mail', 'link'];
+        var guest = 'nick,mail,link';
+        guest = guest.split(',').filter(item => {
+            return GUEST.indexOf(item) > -1;
+        });
+        new Valine({
+            el: '#comments',
+            verify: false,
+            notify: false,
+            appId: '9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz',
+            appKey: '9hUlOM7niDIXYhbgCubnJHyU',
+            placeholder: 'ヾﾉ≧∀≦)o 来啊，快活啊！',
+            avatar: 'mm',
+            guest_info: guest,
+            pageSize: '10' || 10,
+        });
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        // Popup Window;
+        var isfetched = false;
+        var isXml = true;
+        // Search DB path;
+        var search_path = "search.html";
+        if (search_path.length === 0) {
+            search_path = "search.html";
+        } else if (/json$/i.test(search_path)) {
+            isXml = false;
+        }
+        var path = "/" + search_path;
+        // monitor main search box;
+
+        var onPopupClose = function(e) {
+            $('.popup').hide();
+            $('#local-search-input').val('');
+            $('.search-result-list').remove();
+            $('#no-result').remove();
+            $(".local-search-pop-overlay").remove();
+            $('body').css('overflow', '');
+        }
+
+        function proceedsearch() {
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+                .css('overflow', 'hidden');
+            $('.search-popup-overlay').click(onPopupClose);
+            $('.popup').toggle();
+            var $localSearchInput = $('#local-search-input');
+            $localSearchInput.attr("autocapitalize", "none");
+            $localSearchInput.attr("autocorrect", "off");
+            $localSearchInput.focus();
+        }
+
+        // search function;
+        var searchFunc = function(path, search_id, content_id) {
+            'use strict';
+
+            // start loading animation
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                    '<div id="search-loading-icon">' +
+                    '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                    '</div>' +
+                    '</div>')
+                .css('overflow', 'hidden');
+            $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+            $.ajax({
+                url: path,
+                dataType: isXml ? "xml" : "json",
+                async: true,
+                success: function(res) {
+                    // get the contents from search data
+                    isfetched = true;
+                    $('.popup').detach().appendTo('.header-inner');
+                    var datas = isXml ? $("entry", res).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get() : res;
+                    var input = document.getElementById(search_id);
+                    var resultContent = document.getElementById(content_id);
+                    var inputEventFunction = function() {
+                        var searchText = input.value.trim().toLowerCase();
+                        var keywords = searchText.split(/[\s\-]+/);
+                        if (keywords.length > 1) {
+                            keywords.push(searchText);
+                        }
+                        var resultItems = [];
+                        if (searchText.length > 0) {
+                            // perform local searching
+                            datas.forEach(function(data) {
+                                var isMatch = false;
+                                var hitCount = 0;
+                                var searchTextCount = 0;
+                                var title = data.title.trim();
+                                var titleInLowerCase = title.toLowerCase();
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                var contentInLowerCase = content.toLowerCase();
+                                var articleUrl = decodeURIComponent(data.url);
+                                var indexOfTitle = [];
+                                var indexOfContent = [];
+                                // only match articles with not empty titles
+                                if (title != '') {
+                                    keywords.forEach(function(keyword) {
+                                        function getIndexByWord(word, text, caseSensitive) {
+                                            var wordLen = word.length;
+                                            if (wordLen === 0) {
+                                                return [];
+                                            }
+                                            var startPosition = 0,
+                                                position = [],
+                                                index = [];
+                                            if (!caseSensitive) {
+                                                text = text.toLowerCase();
+                                                word = word.toLowerCase();
+                                            }
+                                            while ((position = text.indexOf(word, startPosition)) > -1) {
+                                                index.push({
+                                                    position: position,
+                                                    word: word
+                                                });
+                                                startPosition = position + wordLen;
+                                            }
+                                            return index;
+                                        }
+
+                                        indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                        indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                                    });
+                                    if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                        isMatch = true;
+                                        hitCount = indexOfTitle.length + indexOfContent.length;
+                                    }
+                                }
+
+                                // show search results
+
+                                if (isMatch) {
+                                    // sort index by position of keyword
+
+                                    [indexOfTitle, indexOfContent].forEach(function(index) {
+                                        index.sort(function(itemLeft, itemRight) {
+                                            if (itemRight.position !== itemLeft.position) {
+                                                return itemRight.position - itemLeft.position;
+                                            } else {
+                                                return itemLeft.word.length - itemRight.word.length;
+                                            }
+                                        });
+                                    });
+
+                                    // merge hits into slices
+
+                                    function mergeIntoSlice(text, start, end, index) {
+                                        var item = index[index.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        var hits = [];
+                                        var searchTextCountInSlice = 0;
+                                        while (position + word.length <= end && index.length != 0) {
+                                            if (word === searchText) {
+                                                searchTextCountInSlice++;
+                                            }
+                                            hits.push({
+                                                position: position,
+                                                length: word.length
+                                            });
+                                            var wordEnd = position + word.length;
+
+                                            // move to next position of hit
+
+                                            index.pop();
+                                            while (index.length != 0) {
+                                                item = index[index.length - 1];
+                                                position = item.position;
+                                                word = item.word;
+                                                if (wordEnd > position) {
+                                                    index.pop();
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        searchTextCount += searchTextCountInSlice;
+                                        return {
+                                            hits: hits,
+                                            start: start,
+                                            end: end,
+                                            searchTextCount: searchTextCountInSlice
+                                        };
+                                    }
+
+                                    var slicesOfTitle = [];
+                                    if (indexOfTitle.length != 0) {
+                                        slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                                    }
+
+                                    var slicesOfContent = [];
+                                    while (indexOfContent.length != 0) {
+                                        var item = indexOfContent[indexOfContent.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        // cut out 100 characters
+                                        var start = position - 20;
+                                        var end = position + 80;
+                                        if (start < 0) {
+                                            start = 0;
+                                        }
+                                        if (end < position + word.length) {
+                                            end = position + word.length;
+                                        }
+                                        if (end > content.length) {
+                                            end = content.length;
+                                        }
+                                        slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                                    }
+
+                                    // sort slices in content by search text's count and hits' count
+
+                                    slicesOfContent.sort(function(sliceLeft, sliceRight) {
+                                        if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                            return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                        } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                            return sliceRight.hits.length - sliceLeft.hits.length;
+                                        } else {
+                                            return sliceLeft.start - sliceRight.start;
+                                        }
+                                    });
+
+                                    // select top N slices in content
+
+                                    var upperBound = parseInt('1');
+                                    if (upperBound >= 0) {
+                                        slicesOfContent = slicesOfContent.slice(0, upperBound);
+                                    }
+
+                                    // highlight title and content
+
+                                    function highlightKeyword(text, slice) {
+                                        var result = '';
+                                        var prevEnd = slice.start;
+                                        slice.hits.forEach(function(hit) {
+                                            result += text.substring(prevEnd, hit.position);
+                                            var end = hit.position + hit.length;
+                                            result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                            prevEnd = end;
+                                        });
+                                        result += text.substring(prevEnd, slice.end);
+                                        return result;
+                                    }
+
+                                    var resultItem = '';
+
+                                    if (slicesOfTitle.length != 0) {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                                    } else {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                                    }
+
+                                    slicesOfContent.forEach(function(slice) {
+                                        resultItem += "<a href='" + articleUrl + "'>" +
+                                            "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                            "...</p>" + "</a>";
+                                    });
+
+                                    resultItem += "</li>";
+                                    resultItems.push({
+                                        item: resultItem,
+                                        searchTextCount: searchTextCount,
+                                        hitCount: hitCount,
+                                        id: resultItems.length
+                                    });
+                                }
+                            })
+                        };
+                        if (keywords.length === 1 && keywords[0] === "") {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+                        } else if (resultItems.length === 0) {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+                        } else {
+                            resultItems.sort(function(resultLeft, resultRight) {
+                                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                    return resultRight.searchTextCount - resultLeft.searchTextCount;
+                                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                    return resultRight.hitCount - resultLeft.hitCount;
+                                } else {
+                                    return resultRight.id - resultLeft.id;
+                                }
+                            });
+                            var searchResultList = '<ul class=\"search-result-list\">';
+                            resultItems.forEach(function(result) {
+                                searchResultList += result.item;
+                            })
+                            searchResultList += "</ul>";
+                            resultContent.innerHTML = searchResultList;
+                        }
+                    }
+
+                    if ('auto' === 'auto') {
+                        input.addEventListener('input', inputEventFunction);
+                    } else {
+                        $('.search-icon').click(inputEventFunction);
+                        input.addEventListener('keypress', function(event) {
+                            if (event.keyCode === 13) {
+                                inputEventFunction();
+                            }
+                        });
+                    }
+
+                    // remove loading animation
+                    $(".local-search-pop-overlay").remove();
+                    $('body').css('overflow', '');
+
+                    proceedsearch();
+                }
+            });
+        }
+
+        // handle and trigger popup window;
+        $('.popup-trigger').click(function(e) {
+            e.stopPropagation();
+            if (isfetched === false) {
+                searchFunc(path, 'local-search-input', 'local-search-result');
+            } else {
+                proceedsearch();
+            };
+        });
+
+        $('.popup-btn-close').click(onPopupClose);
+        $('.popup').click(function(e) {
+            e.stopPropagation();
+        });
+        $(document).on('keyup', function(event) {
+            var shouldDismissSearchPopup = event.which === 27 &&
+                $('.search-popup').is(':visible');
+            if (shouldDismissSearchPopup) {
+                onPopupClose();
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/av-core-mini-0.6.4.js_%3b%20filename_%3dutf-8%27%27av-core-mini-0.6.4.js"></script>
+    <script>
+        AV.initialize("9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz", "9hUlOM7niDIXYhbgCubnJHyU");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            var entries = [];
+            var $visitors = $(".leancloud_visitors");
+
+            $visitors.each(function() {
+                entries.push($(this).attr("id").trim());
+            });
+
+            query.containedIn('url', entries);
+            query.find()
+                .done(function(results) {
+                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+                    if (results.length === 0) {
+                        $visitors.find(COUNT_CONTAINER_REF).text(0);
+                        return;
+                    }
+
+                    for (var i = 0; i < results.length; i++) {
+                        var item = results[i];
+                        var url = item.get('url');
+                        var time = item.get('time');
+                        var element = document.getElementById(url);
+
+                        $(element).find(COUNT_CONTAINER_REF).text(time);
+                    }
+                    for (var i = 0; i < entries.length; i++) {
+                        var url = entries[i];
+                        var element = document.getElementById(url);
+                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                        if (countSpan.text() == '') {
+                            countSpan.text(0);
+                        }
+                    }
+                })
+                .fail(function(object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                });
+        }
+
+        function addCount(Counter) {
+            var $visitors = $(".leancloud_visitors");
+            var url = $visitors.attr('id').trim();
+            var title = $visitors.attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+
+            query.equalTo("url", url);
+            query.find({
+                success: function(results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function(counter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                            },
+                            error: function(counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        /* Set ACL */
+                        var acl = new AV.ACL();
+                        acl.setPublicReadAccess(true);
+                        acl.setPublicWriteAccess(true);
+                        newcounter.setACL(acl);
+                        /* End Set ACL */
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function(newcounter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                            },
+                            error: function(newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+
+        $(function() {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+
+
+
+
+
+
+    <script>
+        (function() {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = '../../../zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = '../../../push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true, skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } });
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for (i=0; i
+        < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+            <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJaxdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <!-- hexo-inject:begin -->
+            <!-- Begin: Injected MathJax -->
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+            </script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for(i=0; i
+                < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+
+                    <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+                    </script>
+                    <!-- End: Injected MathJax -->
+                    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+
+<head>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+    <script src="../../lib/pace/pace.min0ff5.js?v=1.0.2"></script>
+    <link href="../../lib/pace/pace-theme-minimal.min0ff5.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link href="../../lib/fancybox/source/jquery.fancybox8cbb.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+    <link href="../../lib/font-awesome/css/font-awesome.min9efe.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+    <link href="../../css/mainf99e.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32x32-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/favicon-16x16-nextf99e.png?v=5.1.4">
+
+
+    <link rel="mask-icon" href="../../images/logof99e.svg?v=5.1.4" color="#222">
+
+
+
+
+
+    <meta name="keywords" content="算法笔记,数论,莫比乌斯反演," />
+
+
+
+
+
+    <link rel="alternate" href="../../atom.xml" title="Siyuan's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+    <meta name="description" content="莫比乌斯反演是数论中的重要内容。对于一些函数，如果很难直接求出它的值，而容易求出其倍数和或约数和，那么可以通过莫比乌斯反演求得原函数的值。">
+    <meta name="keywords" content="算法笔记,数论,莫比乌斯反演">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「算法笔记」莫比乌斯反演">
+    <meta property="og:url" content="http://hydingsy.github.io/articles/algorithm-Mobius-Inversion/index.html">
+    <meta property="og:site_name" content="Siyuan&#39;s Blog">
+    <meta property="og:description" content="莫比乌斯反演是数论中的重要内容。对于一些函数，如果很难直接求出它的值，而容易求出其倍数和或约数和，那么可以通过莫比乌斯反演求得原函数的值。">
+    <meta property="og:locale" content="zh-Hans">
+    <meta property="og:updated_time" content="2019-02-07T04:13:33.018Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="「算法笔记」莫比乌斯反演">
+    <meta name="twitter:description" content="莫比乌斯反演是数论中的重要内容。对于一些函数，如果很难直接求出它的值，而容易求出其倍数和或约数和，那么可以通过莫比乌斯反演求得原函数的值。">
+
+
+
+    <script type="text/javascript" id="hexo.configurations">
+        var NexT = window.NexT || {};
+        var CONFIG = {
+            root: '/',
+            scheme: 'Pisces',
+            version: '5.1.4',
+            sidebar: {
+                "position": "left",
+                "display": "post",
+                "offset": 12,
+                "b2t": false,
+                "scrollpercent": true,
+                "onmobile": false
+            },
+            fancybox: true,
+            tabs: true,
+            motion: {
+                "enable": true,
+                "async": false,
+                "transition": {
+                    "post_block": "fadeIn",
+                    "post_header": "slideDownIn",
+                    "post_body": "slideDownIn",
+                    "coll_header": "slideLeftIn",
+                    "sidebar": "slideUpIn"
+                }
+            },
+            duoshuo: {
+                userId: '0',
+                author: '博主'
+            },
+            algolia: {
+                applicationID: '',
+                apiKey: '',
+                indexName: '',
+                hits: {
+                    "per_page": 10
+                },
+                labels: {
+                    "input_placeholder": "Search for Posts",
+                    "hits_empty": "We didn't find any results for the search: ${query}",
+                    "hits_stats": "${hits} results found in ${time} ms"
+                }
+            }
+        };
+    </script>
+
+
+
+    <link rel="canonical" href="http://hydingsy.github.io/articles/algorithm-Mobius-Inversion/" />
+
+
+
+
+
+    <title>「算法笔记」莫比乌斯反演 | Siyuan's Blog</title>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+
+
+
+
+
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <div class="container sidebar-position-left page-post-detail">
+        <div class="headband"></div>
+        <a href="https://github.com/hydingsy" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+        <style>
+            .github-corner:hover .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+            
+            @keyframes octocat-wave {
+                0%,
+                100% {
+                    transform: rotate(0)
+                }
+                20%,
+                60% {
+                    transform: rotate(-25deg)
+                }
+                40%,
+                80% {
+                    transform: rotate(10deg)
+                }
+            }
+            
+            @media (max-width:500px) {
+                .github-corner:hover .octo-arm {
+                    animation: none
+                }
+                .github-corner .octo-arm {
+                    animation: octocat-wave 560ms ease-in-out
+                }
+            }
+        </style>
+        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+            <div class="header-inner">
+                <div class="site-brand-wrapper">
+                    <div class="site-meta ">
+
+
+                        <div class="custom-logo-site-title">
+                            <a href="../../index.html" class="brand" rel="start">
+                                <span class="logo-line-before"><i></i></span>
+                                <span class="site-title">Siyuan's Blog</span>
+                                <span class="logo-line-after"><i></i></span>
+                            </a>
+                        </div>
+
+                        <p class="site-subtitle">你强归你强，我永不示弱！</p>
+
+                    </div>
+
+                    <div class="site-nav-toggle">
+                        <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+                    </div>
+                </div>
+
+                <nav class="site-nav">
+
+
+
+                    <ul id="menu" class="menu">
+
+
+                        <li class="menu-item menu-item-home">
+                            <a href="../../index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-home"></i> <br /> 首页
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-about">
+                            <a href="../../about/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-user"></i> <br /> 关于
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-archives">
+                            <a href="../../archives/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-archive"></i> <br /> 归档
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-tags">
+                            <a href="../../tags/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-tags"></i> <br /> 标签
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-friends">
+                            <a href="../../friends/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-users"></i> <br /> 友链
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-resources">
+                            <a href="../../resources/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-link"></i> <br /> 资源
+                            </a>
+                        </li>
+
+
+
+                        <li class="menu-item menu-item-search">
+
+                            <a href="javascript:;" class="popup-trigger">
+
+
+                                <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+                    <div class="site-search">
+
+                        <div class="popup search-popup local-search-popup">
+                            <div class="local-search-header clearfix">
+                                <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+                                <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+                                <div class="local-search-input-wrapper">
+                                    <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+                                </div>
+                            </div>
+                            <div id="local-search-result"></div>
+                        </div>
+
+
+
+                    </div>
+
+                </nav>
+
+
+
+            </div>
+        </header>
+
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+
+
+                        <div id="posts" class="posts-expand">
+
+
+
+
+
+
+
+
+                            <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+
+
+
+                                <div class="post-block">
+                                    <link itemprop="mainEntityOfPage" href="http://hydingsy.github.io/articles/algorithm-Mobius-Inversion/">
+
+                                    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.png">
+    </span>
+
+                                    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyuan's Blog">
+    </span>
+
+
+                                    <header class="post-header">
+
+
+
+                                        <h1 class="post-title" itemprop="name headline">「算法笔记」莫比乌斯反演</h1>
+
+
+                                        <div class="post-meta">
+
+                                            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+
+                                            <span class="post-meta-item-text">发表于</span>
+
+                                            <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T00:00:00+08:00">
+                2018-08-22
+              </time>
+
+
+
+
+
+                                            </span>
+
+
+
+
+
+                                            <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                                            <a href="index.html#comments" itemprop="discussionUrl">
+                                                <span class="post-comments-count valine-comment-count" data-xid="/articles/algorithm-Mobius-Inversion/" itemprop="commentCount"></span>
+                                            </a>
+                                            </span>
+
+
+
+
+
+                                            <span id="/articles/algorithm-Mobius-Inversion/" class="leancloud_visitors" data-flag-title="「算法笔记」莫比乌斯反演">
+               <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+
+                                            <span class="post-meta-item-text">阅读次数&#58;</span>
+
+                                            <span class="leancloud-visitors-count"></span>
+                                            </span>
+
+
+
+
+
+                                            <div class="post-wordcount">
+
+
+                                                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+
+                                                <span class="post-meta-item-text">字数统计&#58;</span>
+
+                                                <span title="字数统计">
+                  1.3k 字
+                </span>
+
+
+
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </header>
+
+
+
+
+
+                                    <div class="post-body" itemprop="articleBody">
+
+
+
+
+
+                                        <blockquote class="blockquote-center">莫比乌斯反演是数论中的重要内容。对于一些函数，如果很难直接求出它的值，而容易求出其倍数和或约数和，那么可以通过莫比乌斯反演求得原函数的值。</blockquote>
+
+                                        <a id="more"></a>
+                                        <h2 id="积性函数">
+                                            <a href="#积性函数" class="headerlink" title="积性函数"></a>积性函数</h2>
+                                        <h3 id="定义">
+                                            <a href="#定义" class="headerlink" title="定义"></a>定义</h3>
+                                        <p>若 $\gcd(x,y)=1$ 且 $f(xy)=f(x)f(y)$，则 $f(n)$ 为积性函数。</p>
+                                        <h3 id="性质">
+                                            <a href="#性质" class="headerlink" title="性质"></a>性质</h3>
+                                        <p>若 $f(x)$ 和 $g(x)$ 均为积性函数，则以下函数也为积性函数：</p>
+                                        <script type="math/tex; mode=display">
+                                            \begin{align*} h(x) & = f(x^p) \\ h(x) & = f^p(x) \\ h(x) & = f(x)g(x) \\ h(x) & = \sum_{d\mid x}f(d)g(\frac{x}{d}) \\ \end{align*}
+                                        </script>
+                                        <h3 id="例子">
+                                            <a href="#例子" class="headerlink" title="例子"></a>例子</h3>
+                                        <script type="math/tex; mode=display">
+                                            \begin{array} \text{约数个数函数} & d(n)=\sum_{d\mid n}1 \\ \text{约数和函数} & \sigma(n)=\sum_{d\mid n}d \\ \text{约数}\ k\ \text{次幂函数} & \sigma_k(n)=\sum_{d\mid n}d^k \\ \text{欧拉函数} & \varphi(n)=\sum_{i=1}^n [\gcd(i,n)=1] \\ \text{莫比乌斯函数}& \mu(n)= \begin{cases}
+                                            1 & n=1 \\ (-1)^k & c_{1,2,\cdots,k}=1\quad(n=\prod_{i=1}^k {p_i}^{c_i}) \\ 0 & c_i>1 \end{cases} \end{array}
+                                        </script>
+                                        <hr>
+                                        <h2 id="Dirichlet-卷积">
+                                            <a href="#Dirichlet-卷积" class="headerlink" title="Dirichlet 卷积"></a>Dirichlet 卷积</h2>
+                                        <h3 id="定义-1">
+                                            <a href="#定义-1" class="headerlink" title="定义"></a>定义</h3>
+                                        <p>定义两个数论函数 $f,g$ 的 $\text{Dirichlet}$ 卷积为</p>
+                                        <script type="math/tex; mode=display">
+                                            (f\ast g)(n)=\sum_{d\mid n}f(d)g(\frac{n}{d})</script>
+                                        <h3 id="性质-1">
+                                            <a href="#性质-1" class="headerlink" title="性质"></a>性质</h3>
+                                        <p>$\text{Dirichlet}$ 卷积满足交换律、结合律、分配律。</p>
+                                        <p>其中 $\varepsilon$ 为 $\text{Dirichlet}$ 卷积的单位元（任何函数卷 $\varepsilon$ 都为其本身）</p>
+                                        <h3 id="例子-1">
+                                            <a href="#例子-1" class="headerlink" title="例子"></a>例子</h3>
+                                        <script type="math/tex; mode=display">
+                                            \begin{align*} \varepsilon=\mu\ast 1 & \Leftrightarrow\varepsilon(n)=\sum_{d\mid n}\mu(d) \\ d=1\ast 1 & \Leftrightarrow d(n)=\sum_{d\mid n}1 \\ \sigma=d\ast 1 & \Leftrightarrow\varepsilon(n)=\sum_{d\mid n}d \\ \varphi=\mu\ast\operatorname{ID} & \Leftrightarrow\varphi(n)=\sum_{d\mid
+                                            n}d\cdot\mu(\frac{n}{d}) \\ \end{align*}
+                                        </script>
+                                        <hr>
+                                        <h2 id="莫比乌斯函数">
+                                            <a href="#莫比乌斯函数" class="headerlink" title="莫比乌斯函数"></a>莫比乌斯函数</h2>
+                                        <h3 id="定义-2">
+                                            <a href="#定义-2" class="headerlink" title="定义"></a>定义</h3>
+                                        <p>$\mu$ 为莫比乌斯函数</p>
+                                        <h3 id="性质-2">
+                                            <a href="#性质-2" class="headerlink" title="性质"></a>性质</h3>
+                                        <p>莫比乌斯函数不但是积性函数，还有如下性质：</p>
+                                        <script type="math/tex; mode=display">
+                                            \mu(n)= \begin{cases} 1 & n=1 \\ 0 & n\ \text{含有平方因子} \\ (-1)^k & k\ \text{为}\ n\ \text{的本质不同质因子个数} \\ \end{cases}
+                                        </script>
+                                        <h3 id="证明">
+                                            <a href="#证明" class="headerlink" title="证明"></a>证明</h3>
+                                        <script type="math/tex; mode=display">
+                                            \varepsilon(n)= \begin{cases} 1 & n=1 \\ 0 & n\neq 1 \\ \end{cases}
+                                        </script>
+                                        <p>其中 $\varepsilon(n)=\sum_{d\mid n}\mu(d)$ 即 $\varepsilon=\mu\ast 1$</p>
+                                        <p>设</p>
+                                        <script type="math/tex; mode=display">
+                                            n=\prod_{i=1}^k{p_i}^{c_i},n'=\prod_{i=1}^k p_i</script>
+                                        <p>那么</p>
+                                        <script type="math/tex; mode=display">
+                                            \sum_{d\mid n}\mu(d)=\sum_{d\mid n'}\mu(d)=\sum_{i=0}^k C_k^i\cdot(-1)^k</script>
+                                        <p>根据二项式定理，易知该式子的值在 $k=0$ 即 $n=1$ 时值为 $1$ 否则为 $0$，这也同时证明了 $\sum_{d\mid n}\mu(d)=[n=1]$</p>
+                                        <p><strong>反演结论</strong>：$[gcd(i,j)=1]\Leftrightarrow\sum_{d\mid\gcd(i,j)}\mu(d)$</p>
+                                        <ul>
+                                            <li>
+                                                <p><strong>直接推导</strong>：如果 $\gcd(i,j)=1$，那么意味着上述结论中的 $n=1$，也就是式子的值是 $1$。反之不满足 $[\gcd(i,j)=1] $，值即为 $0$</p>
+                                            </li>
+                                            <li>
+                                                <p><strong>利用 $\varepsilon$ 函数</strong>：根据上一结论，$[\gcd(i,j)=1]\Rightarrow\varepsilon(\gcd(i,j))$，将 $\varepsilon$ 展开即可。</p>
+                                            </li>
+                                        </ul>
+                                        <h3 id="线性筛">
+                                            <a href="#线性筛" class="headerlink" title="线性筛"></a>线性筛</h3>
+                                        <p>由于 $\mu$ 函数为积性函数，因此可以线性筛莫比乌斯函数（线性筛基本可以求所有的积性函数，尽管方法不尽相同）。</p>
+                                        <p><strong>代码</strong>：</p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getMu</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mu[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!flg[i]) p[++tot]=i,mu[i]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=tot&amp;&amp;i*p[j]&lt;=n;++j) &#123;</span><br><span class="line">            flg[i*p[j]]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(i%p[j]==<span class="number">0</span>) &#123;</span><br><span class="line">                mu[i*p[j]]=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mu[i*p[j]]=-mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="拓展结论">
+                                            <a href="#拓展结论" class="headerlink" title="拓展结论"></a>拓展结论</h3>
+                                        <script type="math/tex; mode=display">
+                                            \varphi\ast 1=\operatorname{ID}\quad\operatorname{ID}\ \text{即}\ f(x)=x</script>
+                                        <p>将 $n$ 分解质因数：$n=\prod_{i=1}^k {p_i}^{c_i}$</p>
+                                        <p>首先，因为 $\varphi$ 是积性函数，故只要证明当 $n’=p^c$ 时 $\varphi\ast 1=\sum_{d\mid n’}\varphi(\frac{n’}{d})=\operatorname{ID}$ 成立即可。</p>
+                                        <p>因为 $p$ 是质数，于是 $d=p^0,p^1,p^2,\cdots,p^c$</p>
+                                        <p>易知如下过程：</p>
+                                        <script type="math/tex; mode=display">
+                                            \begin{align*} \varphi\ast 1 & =\sum_{d\mid n}\varphi(\frac{n}{d}) \\ & =\sum_{i=0}^c\varphi(p^i) \\ & =1+p^0\cdot(p-1)+p^1\cdot(p-1)+\cdots+p^{c-1}\cdot(p-1) \\ & =p^c \\ & =\operatorname{ID} \\ \end{align*}
+                                        </script>
+                                        <p>该式子两侧同时卷 $\mu$ 可得 $\varphi(n)=\sum_{d\mid n}d\cdot\mu(\frac{n}{d})$</p>
+                                        <hr>
+                                        <h2 id="莫比乌斯反演">
+                                            <a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2>
+                                        <h3 id="公式">
+                                            <a href="#公式" class="headerlink" title="公式"></a>公式</h3>
+                                        <p>设 $f(n),g(n)$ 为两个数论函数。</p>
+                                        <p>如果有</p>
+                                        <script type="math/tex; mode=display">
+                                            f(n)=\sum_{d\mid n}g(d)</script>
+                                        <p>那么有</p>
+                                        <script type="math/tex; mode=display">
+                                            g(n)=\sum_{d\mid n}\mu(d)f(\frac{n}{d})</script>
+                                        <h3 id="证明-1">
+                                            <a href="#证明-1" class="headerlink" title="证明"></a>证明</h3>
+                                        <h4 id="暴力计算">
+                                            <a href="#暴力计算" class="headerlink" title="暴力计算"></a>暴力计算</h4>
+                                        <script type="math/tex; mode=display">
+                                            \sum_{d\mid n}\mu(d)f(\frac{n}{d})=\sum_{d\mid n}\mu(d)\sum_{k\mid \frac{n}{d}}g(k)=\sum_{k\mid n}g(k)\sum_{d\mid \frac{n}{k}}\mu(d)=g(n)</script>
+                                        <p>用 $\sum_{d\mid n}g(d)$ 来替换 $f(\frac{n}{d})$，再变换求和顺序。最后一步转为的依据：$\sum_{d\mid n}\mu(d)=[n=1]$，因此在 $\frac{n}{k}=1$ 时第二个和式的值才为 $1$。此时 $n=k$，故原式等价于 $\sum_{k\mid n}[n=k]\cdot g(k)=g(n)$</p>
+                                        <h4 id="运用卷积">
+                                            <a href="#运用卷积" class="headerlink" title="运用卷积"></a>运用卷积</h4>
+                                        <p>原问题即为：已知 $f=g\ast 1$，证明 $g=f\ast\mu$</p>
+                                        <p>易知如下转化：$f\ast\mu=g\ast 1\ast\mu\Rightarrow f\ast\mu=g$（其中 $1\ast\mu=\varepsilon$）</p>
+                                        <hr>
+                                        <h2 id="问题形式">
+                                            <a href="#问题形式" class="headerlink" title="问题形式"></a>问题形式</h2>
+                                        <p>部分题目的题解可以在本博客中找到！</p>
+                                        <div class="table-container">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align:center">求解内容</th>
+                                                        <th style="text-align:center">题目</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="text-align:center">$\sum_{i=1}^n\sum_{j=1}^m[\gcd(i,j)=k]$</td>
+                                                        <td style="text-align:center"><a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2301" target="_blank" rel="noopener">「HAOI 2011」Problem B</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center">$\sum_{i=1}^n\operatorname{lcm}(i,n)$</td>
+                                                        <td style="text-align:center"><a href="https://www.luogu.org/problemnew/show/SP5971" target="_blank" rel="noopener">「SPOJ 5971」LCMSUM</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center">$\sum_{i=1}^n\sum_{j=1}^m\operatorname{lcm}(i,j)$</td>
+                                                        <td style="text-align:center"><a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2154" target="_blank" rel="noopener">「BZOJ 2154」Crash 的数字表格</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center">$\sum_{i=1}^a\sum_{j=1}^b\sum_{k=1}^c d(ijk)$</td>
+                                                        <td style="text-align:center"><a href="https://codeforces.com/contest/235/problem/E" target="_blank" rel="noopener">「Codeforces 235E」Number Challenge</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center">维护数组 $a$，支持对所有 $\gcd(x,n)=d$ 的 $a_x$ 增加相同的值和前缀和查询</td>
+                                                        <td style="text-align:center"><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4947" target="_blank" rel="noopener">「HDU 4947」GCD Array</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <blockquote>
+                                            <p>本文部分内容引用于 <a href="https://algocode.net/" target="_blank" rel="noopener">algocode 算法之路</a>，特别鸣谢！</p>
+                                        </blockquote>
+
+
+                                    </div>
+
+
+
+                                    <div>
+
+
+
+                                    </div>
+
+
+
+
+
+                                    <div>
+                                        <ul class="post-copyright">
+                                            <li class="post-copyright-author">
+                                                <strong>本文作者：</strong> Siyuan
+                                            </li>
+                                            <li class="post-copyright-link">
+                                                <strong>本文链接：</strong>
+                                                <a href="http://hydingsy.github.io/articles/algorithm-Mobius-Inversion/" title="「算法笔记」莫比乌斯反演">http://hydingsy.github.io/articles/algorithm-Mobius-Inversion/</a>
+                                            </li>
+                                            <li class="post-copyright-license">
+                                                <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+
+                                    <footer class="post-footer">
+
+                                        <div class="post-tags">
+
+                                            <a href="../../tags/%e7%ae%97%e6%b3%95%e7%ac%94%e8%ae%b0/index.html" rel="tag"><i class="fa fa-tag"></i> 算法笔记</a>
+
+                                            <a href="../../tags/%e6%95%b0%e8%ae%ba/index.html" rel="tag"><i class="fa fa-tag"></i> 数论</a>
+
+                                            <a href="../../tags/%e8%8e%ab%e6%af%94%e4%b9%8c%e6%96%af%e5%8f%8d%e6%bc%94/index.html" rel="tag"><i class="fa fa-tag"></i> 莫比乌斯反演</a>
+
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="post-nav">
+                                            <div class="post-nav-next post-nav-item">
+
+                                                <a href="../training-ZROI-2018-0821-PT/index.html" rel="next" title="「ZROI 2018」0821 暑假普转提模拟赛">
+                                                    <i class="fa fa-chevron-left"></i> 「ZROI 2018」0821 暑假普转提模拟赛
+                                                </a>
+
+                                            </div>
+
+                                            <span class="post-nav-divider"></span>
+
+                                            <div class="post-nav-prev post-nav-item">
+
+                                                <a href="../algorithm-Simulate-Anneal/index.html" rel="prev" title="「算法笔记」爬山算法 模拟退火">
+                「算法笔记」爬山算法 模拟退火 <i class="fa fa-chevron-right"></i>
+              </a>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </footer>
+                                </div>
+
+
+
+                            </article>
+
+
+
+                            <div class="post-spread">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="comments" id="comments">
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="sidebar-toggle">
+                    <div class="sidebar-toggle-line-wrap">
+                        <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+                    </div>
+                </div>
+
+                <aside id="sidebar" class="sidebar">
+
+                    <div class="sidebar-inner">
+
+
+
+
+                        <ul class="sidebar-nav motion-element">
+                            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+                                文章目录
+                            </li>
+                            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+                                站点概览
+                            </li>
+                        </ul>
+
+
+                        <section class="site-overview-wrap sidebar-panel">
+                            <div class="site-overview">
+                                <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+
+                                    <img class="site-author-image" itemprop="image" src="../../images/avatar.png" alt="Siyuan" />
+
+                                    <p class="site-author-name" itemprop="name">Siyuan</p>
+                                    <p class="site-description motion-element" itemprop="description">Chasing Dream OIer</p>
+                                </div>
+
+                                <nav class="site-state motion-element">
+
+
+                                    <div class="site-state-item site-state-posts">
+
+                                        <a href="../../archives/index.html">
+
+                                            <span class="site-state-item-count">165</span>
+                                            <span class="site-state-item-name">日志</span>
+                                        </a>
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="site-state-item site-state-tags">
+                                        <a href="../../tags/index-2.html">
+                                            <span class="site-state-item-count">147</span>
+                                            <span class="site-state-item-name">标签</span>
+                                        </a>
+                                    </div>
+
+
+                                </nav>
+
+
+                                <div class="feed-link motion-element">
+                                    <a href="../../atom.xml" rel="alternate">
+                                        <i class="fa fa-rss"></i> RSS
+                                    </a>
+                                </div>
+
+
+
+                                <div class="links-of-author motion-element">
+
+                                    <span class="links-of-author-item">
+                    <a href="https://github.com/hydingsy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://codeforces.com/profile/SiyuanQAQ" target="_blank" title="Codeforces">
+                      
+                        <i class="fa fa-fw fa-code"></i>Codeforces</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=294873684" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="mailto:294873684@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/dingsiyuan" target="_blank" title="Zhihu">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>Zhihu</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://t.me/hydingsy" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </section>
+
+
+                        <!--noindex-->
+                        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+                            <div class="post-toc">
+
+
+
+
+
+
+                                <div class="post-toc-content">
+                                    <ol class="nav">
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#积性函数"><span class="nav-number">1.</span> <span class="nav-text">积性函数</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">1.2.</span> <span class="nav-text">性质</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.3.</span> <span class="nav-text">例子</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#Dirichlet-卷积"><span class="nav-number">2.</span> <span class="nav-text">Dirichlet 卷积</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#性质-1"><span class="nav-number">2.2.</span> <span class="nav-text">性质</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#例子-1"><span class="nav-number">2.3.</span> <span class="nav-text">例子</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#莫比乌斯函数"><span class="nav-number">3.</span> <span class="nav-text">莫比乌斯函数</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#性质-2"><span class="nav-number">3.2.</span> <span class="nav-text">性质</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">3.3.</span> <span class="nav-text">证明</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#线性筛"><span class="nav-number">3.4.</span> <span class="nav-text">线性筛</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#拓展结论"><span class="nav-number">3.5.</span> <span class="nav-text">拓展结论</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#莫比乌斯反演"><span class="nav-number">4.</span> <span class="nav-text">莫比乌斯反演</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#公式"><span class="nav-number">4.1.</span> <span class="nav-text">公式</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#证明-1"><span class="nav-number">4.2.</span> <span class="nav-text">证明</span></a>
+                                                    <ol class="nav-child">
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#暴力计算"><span class="nav-number">4.2.1.</span> <span class="nav-text">暴力计算</span></a></li>
+                                                        <li class="nav-item nav-level-4"><a class="nav-link" href="#运用卷积"><span class="nav-number">4.2.2.</span> <span class="nav-text">运用卷积</span></a></li>
+                                                    </ol>
+                                                </li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#问题形式"><span class="nav-number">5.</span> <span class="nav-text">问题形式</span></a></li>
+                                    </ol>
+                                </div>
+
+
+                            </div>
+                        </section>
+                        <!--/noindex-->
+
+
+
+
+                    </div>
+                </aside>
+
+
+
+            </div>
+        </main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+                    <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+                    <span class="author" itemprop="copyrightHolder">Siyuan</span>
+
+
+                    <span class="post-meta-divider">|</span>
+                    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+
+                    <span class="post-meta-item-text">Site words total count&#58;</span>
+
+                    <span title="Site words total count">145.4k</span>
+
+                </div>
+
+
+                <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io/">Hexo</a> 强力驱动</div>
+
+
+
+                <span class="post-meta-divider">|</span>
+
+
+
+                <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+                <div class="busuanzi-count">
+                    <script async src="../../../busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+                    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+                    <i class="fa fa-eye"></i>
+                    </span>
+
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </footer>
+
+
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i>
+
+            <span id="scrollpercent"><span>0</span>%</span>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+            window.Promise = null;
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery/index62ba.js?v=2.1.3"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.minc924.js?v=1.0.6"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyloada045.js?v=1.9.7"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.ui.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack8cbb.js?v=2.1.5"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/utilsf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/motionf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/affixf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/schemes/piscesf99e.js?v=5.1.4"></script>
+
+
+
+
+    <script type="text/javascript" src="../../js/src/scrollspyf99e.js?v=5.1.4"></script>
+    <script type="text/javascript" src="../../js/src/post-detailsf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/bootstrapf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/3.0.4/av-min.js_%3b%20filename_%3dutf-8%27%27av-min.js"></script>
+    <script src="../../../unpkg.com/valine%401.4.14/dist/Valine.min.js"></script>
+
+    <script type="text/javascript">
+        var GUEST = ['nick', 'mail', 'link'];
+        var guest = 'nick,mail,link';
+        guest = guest.split(',').filter(item => {
+            return GUEST.indexOf(item) > -1;
+        });
+        new Valine({
+            el: '#comments',
+            verify: false,
+            notify: false,
+            appId: '9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz',
+            appKey: '9hUlOM7niDIXYhbgCubnJHyU',
+            placeholder: 'ヾﾉ≧∀≦)o 来啊，快活啊！',
+            avatar: 'mm',
+            guest_info: guest,
+            pageSize: '10' || 10,
+        });
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        // Popup Window;
+        var isfetched = false;
+        var isXml = true;
+        // Search DB path;
+        var search_path = "search.html";
+        if (search_path.length === 0) {
+            search_path = "search.html";
+        } else if (/json$/i.test(search_path)) {
+            isXml = false;
+        }
+        var path = "/" + search_path;
+        // monitor main search box;
+
+        var onPopupClose = function(e) {
+            $('.popup').hide();
+            $('#local-search-input').val('');
+            $('.search-result-list').remove();
+            $('#no-result').remove();
+            $(".local-search-pop-overlay").remove();
+            $('body').css('overflow', '');
+        }
+
+        function proceedsearch() {
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+                .css('overflow', 'hidden');
+            $('.search-popup-overlay').click(onPopupClose);
+            $('.popup').toggle();
+            var $localSearchInput = $('#local-search-input');
+            $localSearchInput.attr("autocapitalize", "none");
+            $localSearchInput.attr("autocorrect", "off");
+            $localSearchInput.focus();
+        }
+
+        // search function;
+        var searchFunc = function(path, search_id, content_id) {
+            'use strict';
+
+            // start loading animation
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                    '<div id="search-loading-icon">' +
+                    '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                    '</div>' +
+                    '</div>')
+                .css('overflow', 'hidden');
+            $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+            $.ajax({
+                url: path,
+                dataType: isXml ? "xml" : "json",
+                async: true,
+                success: function(res) {
+                    // get the contents from search data
+                    isfetched = true;
+                    $('.popup').detach().appendTo('.header-inner');
+                    var datas = isXml ? $("entry", res).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get() : res;
+                    var input = document.getElementById(search_id);
+                    var resultContent = document.getElementById(content_id);
+                    var inputEventFunction = function() {
+                        var searchText = input.value.trim().toLowerCase();
+                        var keywords = searchText.split(/[\s\-]+/);
+                        if (keywords.length > 1) {
+                            keywords.push(searchText);
+                        }
+                        var resultItems = [];
+                        if (searchText.length > 0) {
+                            // perform local searching
+                            datas.forEach(function(data) {
+                                var isMatch = false;
+                                var hitCount = 0;
+                                var searchTextCount = 0;
+                                var title = data.title.trim();
+                                var titleInLowerCase = title.toLowerCase();
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                var contentInLowerCase = content.toLowerCase();
+                                var articleUrl = decodeURIComponent(data.url);
+                                var indexOfTitle = [];
+                                var indexOfContent = [];
+                                // only match articles with not empty titles
+                                if (title != '') {
+                                    keywords.forEach(function(keyword) {
+                                        function getIndexByWord(word, text, caseSensitive) {
+                                            var wordLen = word.length;
+                                            if (wordLen === 0) {
+                                                return [];
+                                            }
+                                            var startPosition = 0,
+                                                position = [],
+                                                index = [];
+                                            if (!caseSensitive) {
+                                                text = text.toLowerCase();
+                                                word = word.toLowerCase();
+                                            }
+                                            while ((position = text.indexOf(word, startPosition)) > -1) {
+                                                index.push({
+                                                    position: position,
+                                                    word: word
+                                                });
+                                                startPosition = position + wordLen;
+                                            }
+                                            return index;
+                                        }
+
+                                        indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                        indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                                    });
+                                    if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                        isMatch = true;
+                                        hitCount = indexOfTitle.length + indexOfContent.length;
+                                    }
+                                }
+
+                                // show search results
+
+                                if (isMatch) {
+                                    // sort index by position of keyword
+
+                                    [indexOfTitle, indexOfContent].forEach(function(index) {
+                                        index.sort(function(itemLeft, itemRight) {
+                                            if (itemRight.position !== itemLeft.position) {
+                                                return itemRight.position - itemLeft.position;
+                                            } else {
+                                                return itemLeft.word.length - itemRight.word.length;
+                                            }
+                                        });
+                                    });
+
+                                    // merge hits into slices
+
+                                    function mergeIntoSlice(text, start, end, index) {
+                                        var item = index[index.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        var hits = [];
+                                        var searchTextCountInSlice = 0;
+                                        while (position + word.length <= end && index.length != 0) {
+                                            if (word === searchText) {
+                                                searchTextCountInSlice++;
+                                            }
+                                            hits.push({
+                                                position: position,
+                                                length: word.length
+                                            });
+                                            var wordEnd = position + word.length;
+
+                                            // move to next position of hit
+
+                                            index.pop();
+                                            while (index.length != 0) {
+                                                item = index[index.length - 1];
+                                                position = item.position;
+                                                word = item.word;
+                                                if (wordEnd > position) {
+                                                    index.pop();
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        searchTextCount += searchTextCountInSlice;
+                                        return {
+                                            hits: hits,
+                                            start: start,
+                                            end: end,
+                                            searchTextCount: searchTextCountInSlice
+                                        };
+                                    }
+
+                                    var slicesOfTitle = [];
+                                    if (indexOfTitle.length != 0) {
+                                        slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                                    }
+
+                                    var slicesOfContent = [];
+                                    while (indexOfContent.length != 0) {
+                                        var item = indexOfContent[indexOfContent.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        // cut out 100 characters
+                                        var start = position - 20;
+                                        var end = position + 80;
+                                        if (start < 0) {
+                                            start = 0;
+                                        }
+                                        if (end < position + word.length) {
+                                            end = position + word.length;
+                                        }
+                                        if (end > content.length) {
+                                            end = content.length;
+                                        }
+                                        slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                                    }
+
+                                    // sort slices in content by search text's count and hits' count
+
+                                    slicesOfContent.sort(function(sliceLeft, sliceRight) {
+                                        if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                            return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                        } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                            return sliceRight.hits.length - sliceLeft.hits.length;
+                                        } else {
+                                            return sliceLeft.start - sliceRight.start;
+                                        }
+                                    });
+
+                                    // select top N slices in content
+
+                                    var upperBound = parseInt('1');
+                                    if (upperBound >= 0) {
+                                        slicesOfContent = slicesOfContent.slice(0, upperBound);
+                                    }
+
+                                    // highlight title and content
+
+                                    function highlightKeyword(text, slice) {
+                                        var result = '';
+                                        var prevEnd = slice.start;
+                                        slice.hits.forEach(function(hit) {
+                                            result += text.substring(prevEnd, hit.position);
+                                            var end = hit.position + hit.length;
+                                            result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                            prevEnd = end;
+                                        });
+                                        result += text.substring(prevEnd, slice.end);
+                                        return result;
+                                    }
+
+                                    var resultItem = '';
+
+                                    if (slicesOfTitle.length != 0) {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                                    } else {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                                    }
+
+                                    slicesOfContent.forEach(function(slice) {
+                                        resultItem += "<a href='" + articleUrl + "'>" +
+                                            "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                            "...</p>" + "</a>";
+                                    });
+
+                                    resultItem += "</li>";
+                                    resultItems.push({
+                                        item: resultItem,
+                                        searchTextCount: searchTextCount,
+                                        hitCount: hitCount,
+                                        id: resultItems.length
+                                    });
+                                }
+                            })
+                        };
+                        if (keywords.length === 1 && keywords[0] === "") {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+                        } else if (resultItems.length === 0) {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+                        } else {
+                            resultItems.sort(function(resultLeft, resultRight) {
+                                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                    return resultRight.searchTextCount - resultLeft.searchTextCount;
+                                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                    return resultRight.hitCount - resultLeft.hitCount;
+                                } else {
+                                    return resultRight.id - resultLeft.id;
+                                }
+                            });
+                            var searchResultList = '<ul class=\"search-result-list\">';
+                            resultItems.forEach(function(result) {
+                                searchResultList += result.item;
+                            })
+                            searchResultList += "</ul>";
+                            resultContent.innerHTML = searchResultList;
+                        }
+                    }
+
+                    if ('auto' === 'auto') {
+                        input.addEventListener('input', inputEventFunction);
+                    } else {
+                        $('.search-icon').click(inputEventFunction);
+                        input.addEventListener('keypress', function(event) {
+                            if (event.keyCode === 13) {
+                                inputEventFunction();
+                            }
+                        });
+                    }
+
+                    // remove loading animation
+                    $(".local-search-pop-overlay").remove();
+                    $('body').css('overflow', '');
+
+                    proceedsearch();
+                }
+            });
+        }
+
+        // handle and trigger popup window;
+        $('.popup-trigger').click(function(e) {
+            e.stopPropagation();
+            if (isfetched === false) {
+                searchFunc(path, 'local-search-input', 'local-search-result');
+            } else {
+                proceedsearch();
+            };
+        });
+
+        $('.popup-btn-close').click(onPopupClose);
+        $('.popup').click(function(e) {
+            e.stopPropagation();
+        });
+        $(document).on('keyup', function(event) {
+            var shouldDismissSearchPopup = event.which === 27 &&
+                $('.search-popup').is(':visible');
+            if (shouldDismissSearchPopup) {
+                onPopupClose();
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/av-core-mini-0.6.4.js_%3b%20filename_%3dutf-8%27%27av-core-mini-0.6.4.js"></script>
+    <script>
+        AV.initialize("9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz", "9hUlOM7niDIXYhbgCubnJHyU");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            var entries = [];
+            var $visitors = $(".leancloud_visitors");
+
+            $visitors.each(function() {
+                entries.push($(this).attr("id").trim());
+            });
+
+            query.containedIn('url', entries);
+            query.find()
+                .done(function(results) {
+                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+                    if (results.length === 0) {
+                        $visitors.find(COUNT_CONTAINER_REF).text(0);
+                        return;
+                    }
+
+                    for (var i = 0; i < results.length; i++) {
+                        var item = results[i];
+                        var url = item.get('url');
+                        var time = item.get('time');
+                        var element = document.getElementById(url);
+
+                        $(element).find(COUNT_CONTAINER_REF).text(time);
+                    }
+                    for (var i = 0; i < entries.length; i++) {
+                        var url = entries[i];
+                        var element = document.getElementById(url);
+                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                        if (countSpan.text() == '') {
+                            countSpan.text(0);
+                        }
+                    }
+                })
+                .fail(function(object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                });
+        }
+
+        function addCount(Counter) {
+            var $visitors = $(".leancloud_visitors");
+            var url = $visitors.attr('id').trim();
+            var title = $visitors.attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+
+            query.equalTo("url", url);
+            query.find({
+                success: function(results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function(counter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                            },
+                            error: function(counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        /* Set ACL */
+                        var acl = new AV.ACL();
+                        acl.setPublicReadAccess(true);
+                        acl.setPublicWriteAccess(true);
+                        newcounter.setACL(acl);
+                        /* End Set ACL */
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function(newcounter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                            },
+                            error: function(newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+
+        $(function() {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+
+
+
+
+
+
+    <script>
+        (function() {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = '../../../zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = '../../../push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true, skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } });
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for (i=0; i
+        < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+            <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJaxdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <!-- hexo-inject:begin -->
+            <!-- Begin: Injected MathJax -->
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+            </script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for(i=0; i
+                < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+
+                    <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+                    </script>
+                    <!-- End: Injected MathJax -->
+                    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

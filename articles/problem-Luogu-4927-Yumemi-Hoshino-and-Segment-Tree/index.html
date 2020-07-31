@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+
+<head>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+    <script src="../../lib/pace/pace.min0ff5.js?v=1.0.2"></script>
+    <link href="../../lib/pace/pace-theme-minimal.min0ff5.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link href="../../lib/fancybox/source/jquery.fancybox8cbb.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+    <link href="../../lib/font-awesome/css/font-awesome.min9efe.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+    <link href="../../css/mainf99e.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32x32-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/favicon-16x16-nextf99e.png?v=5.1.4">
+
+
+    <link rel="mask-icon" href="../../images/logof99e.svg?v=5.1.4" color="#222">
+
+
+
+
+
+    <meta name="keywords" content="数据结构,线段树,Luogu," />
+
+
+
+
+
+    <link rel="alternate" href="../../atom.xml" title="Siyuan's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+    <meta name="description" content="Description 题目链接：Luogu 4927  有一棵维护区间和的线段树，每个节点的权值是该节点所对应区间的元素 $a_i$ 的权值和。梦美会从这棵线段树的根节点开始游历，当她要进入子节点时，假设左右儿子的权值为 $sum_l$ 和 $sum_r$，当前节点的权值为 $sum_{cnr}$，那么梦美会以 $\frac{sum_l}{sum_{cnr}}$ 的概率进入左子树，否则进入右子树">
+    <meta name="keywords" content="数据结构,线段树,Luogu">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「Luogu 4927」梦美与线段树">
+    <meta property="og:url" content="http://hydingsy.github.io/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/index.html">
+    <meta property="og:site_name" content="Siyuan&#39;s Blog">
+    <meta property="og:description" content="Description 题目链接：Luogu 4927  有一棵维护区间和的线段树，每个节点的权值是该节点所对应区间的元素 $a_i$ 的权值和。梦美会从这棵线段树的根节点开始游历，当她要进入子节点时，假设左右儿子的权值为 $sum_l$ 和 $sum_r$，当前节点的权值为 $sum_{cnr}$，那么梦美会以 $\frac{sum_l}{sum_{cnr}}$ 的概率进入左子树，否则进入右子树">
+    <meta property="og:locale" content="zh-Hans">
+    <meta property="og:updated_time" content="2019-02-07T04:13:40.218Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="「Luogu 4927」梦美与线段树">
+    <meta name="twitter:description" content="Description 题目链接：Luogu 4927  有一棵维护区间和的线段树，每个节点的权值是该节点所对应区间的元素 $a_i$ 的权值和。梦美会从这棵线段树的根节点开始游历，当她要进入子节点时，假设左右儿子的权值为 $sum_l$ 和 $sum_r$，当前节点的权值为 $sum_{cnr}$，那么梦美会以 $\frac{sum_l}{sum_{cnr}}$ 的概率进入左子树，否则进入右子树">
+
+
+
+    <script type="text/javascript" id="hexo.configurations">
+        var NexT = window.NexT || {};
+        var CONFIG = {
+            root: '/',
+            scheme: 'Pisces',
+            version: '5.1.4',
+            sidebar: {
+                "position": "left",
+                "display": "post",
+                "offset": 12,
+                "b2t": false,
+                "scrollpercent": true,
+                "onmobile": false
+            },
+            fancybox: true,
+            tabs: true,
+            motion: {
+                "enable": true,
+                "async": false,
+                "transition": {
+                    "post_block": "fadeIn",
+                    "post_header": "slideDownIn",
+                    "post_body": "slideDownIn",
+                    "coll_header": "slideLeftIn",
+                    "sidebar": "slideUpIn"
+                }
+            },
+            duoshuo: {
+                userId: '0',
+                author: '博主'
+            },
+            algolia: {
+                applicationID: '',
+                apiKey: '',
+                indexName: '',
+                hits: {
+                    "per_page": 10
+                },
+                labels: {
+                    "input_placeholder": "Search for Posts",
+                    "hits_empty": "We didn't find any results for the search: ${query}",
+                    "hits_stats": "${hits} results found in ${time} ms"
+                }
+            }
+        };
+    </script>
+
+
+
+    <link rel="canonical" href="http://hydingsy.github.io/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/" />
+
+
+
+
+
+    <title>「Luogu 4927」梦美与线段树 | Siyuan's Blog</title>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+
+
+
+
+
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <div class="container sidebar-position-left page-post-detail">
+        <div class="headband"></div>
+        <a href="https://github.com/hydingsy" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+        <style>
+            .github-corner:hover .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+            
+            @keyframes octocat-wave {
+                0%,
+                100% {
+                    transform: rotate(0)
+                }
+                20%,
+                60% {
+                    transform: rotate(-25deg)
+                }
+                40%,
+                80% {
+                    transform: rotate(10deg)
+                }
+            }
+            
+            @media (max-width:500px) {
+                .github-corner:hover .octo-arm {
+                    animation: none
+                }
+                .github-corner .octo-arm {
+                    animation: octocat-wave 560ms ease-in-out
+                }
+            }
+        </style>
+        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+            <div class="header-inner">
+                <div class="site-brand-wrapper">
+                    <div class="site-meta ">
+
+
+                        <div class="custom-logo-site-title">
+                            <a href="../../index.html" class="brand" rel="start">
+                                <span class="logo-line-before"><i></i></span>
+                                <span class="site-title">Siyuan's Blog</span>
+                                <span class="logo-line-after"><i></i></span>
+                            </a>
+                        </div>
+
+                        <p class="site-subtitle">你强归你强，我永不示弱！</p>
+
+                    </div>
+
+                    <div class="site-nav-toggle">
+                        <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+                    </div>
+                </div>
+
+                <nav class="site-nav">
+
+
+
+                    <ul id="menu" class="menu">
+
+
+                        <li class="menu-item menu-item-home">
+                            <a href="../../index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-home"></i> <br /> 首页
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-about">
+                            <a href="../../about/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-user"></i> <br /> 关于
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-archives">
+                            <a href="../../archives/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-archive"></i> <br /> 归档
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-tags">
+                            <a href="../../tags/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-tags"></i> <br /> 标签
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-friends">
+                            <a href="../../friends/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-users"></i> <br /> 友链
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-resources">
+                            <a href="../../resources/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-link"></i> <br /> 资源
+                            </a>
+                        </li>
+
+
+
+                        <li class="menu-item menu-item-search">
+
+                            <a href="javascript:;" class="popup-trigger">
+
+
+                                <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+                    <div class="site-search">
+
+                        <div class="popup search-popup local-search-popup">
+                            <div class="local-search-header clearfix">
+                                <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+                                <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+                                <div class="local-search-input-wrapper">
+                                    <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+                                </div>
+                            </div>
+                            <div id="local-search-result"></div>
+                        </div>
+
+
+
+                    </div>
+
+                </nav>
+
+
+
+            </div>
+        </header>
+
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+
+
+                        <div id="posts" class="posts-expand">
+
+
+
+
+
+
+
+
+                            <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+
+
+
+                                <div class="post-block">
+                                    <link itemprop="mainEntityOfPage" href="http://hydingsy.github.io/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/">
+
+                                    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.png">
+    </span>
+
+                                    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyuan's Blog">
+    </span>
+
+
+                                    <header class="post-header">
+
+
+
+                                        <h1 class="post-title" itemprop="name headline">「Luogu 4927」梦美与线段树</h1>
+
+
+                                        <div class="post-meta">
+
+                                            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+
+                                            <span class="post-meta-item-text">发表于</span>
+
+                                            <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T00:00:00+08:00">
+                2018-11-18
+              </time>
+
+
+
+
+
+                                            </span>
+
+
+
+
+
+                                            <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                                            <a href="index.html#comments" itemprop="discussionUrl">
+                                                <span class="post-comments-count valine-comment-count" data-xid="/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/" itemprop="commentCount"></span>
+                                            </a>
+                                            </span>
+
+
+
+
+
+                                            <span id="/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/" class="leancloud_visitors" data-flag-title="「Luogu 4927」梦美与线段树">
+               <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+
+                                            <span class="post-meta-item-text">阅读次数&#58;</span>
+
+                                            <span class="leancloud-visitors-count"></span>
+                                            </span>
+
+
+
+
+
+                                            <div class="post-wordcount">
+
+
+                                                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+
+                                                <span class="post-meta-item-text">字数统计&#58;</span>
+
+                                                <span title="字数统计">
+                  1.1k 字
+                </span>
+
+
+
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </header>
+
+
+
+
+
+                                    <div class="post-body" itemprop="articleBody">
+
+
+
+
+
+                                        <h2 id="Description">
+                                            <a href="#Description" class="headerlink" title="Description"></a>Description</h2>
+                                        <blockquote>
+                                            <p>题目链接：<a href="https://www.luogu.org/problem/show?pid=4927" target="_blank" rel="noopener">Luogu 4927</a></p>
+                                        </blockquote>
+                                        <p>有一棵维护区间和的线段树，每个节点的权值是该节点所对应区间的元素 $a_i$ 的权值和。梦美会从这棵线段树的根节点开始游历，当她要进入子节点时，假设左右儿子的权值为 $sum_l$ 和 $sum_r$，当前节点的权值为 $sum_{cnr}$，那么梦美会以 $\frac{sum_l}{sum_{cnr}}$ 的概率进入左子树，否则进入右子树。</p>
+                                        <p>梦美有时会把下标在 $[l,r]$ 的序列的元素权值加上 $v$。梦美每次游历时，梦美会把经过的节点权值累加，现在她希望求出这个权值的期望。答案化成最简分数为 $\frac{p}{q}$，输出 $p\cdot q^{-1}\bmod 998244353$。</p>
+                                        <p>数据范围：$1\le n,m\le 10^5$，$1\le a_i,v\le 10^9$</p>
+                                        <a id="more"></a>
+                                        <hr>
+                                        <h2 id="Solution">
+                                            <a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2>
+                                        <h3 id="计算答案">
+                                            <a href="#计算答案" class="headerlink" title="计算答案"></a>计算答案</h3>
+                                        <p>我们考虑期望原来的定义：$\frac{\text{所有情况的结果总和}}{\text{总情况数}}$。由于没给节点的权值都是左右儿子的权值和，经过的概率也和权值有关，我们记 $val_i$ 为节点 $i$ 的权值，那么可以看做是从根节点 $1$ 出发进行 $val_1$ 次游历，那么走到每一个节点的次数就是这个节点的权值。</p>
+                                        <p>那么<strong>所有情况的结果总和</strong>就是 ${val_i}^2$，<strong>总情况数</strong>就是 $val_1$。因此，如果没有修改操作，我们只要维护每个点的 ${val_i}^2$ 即可。</p>
+                                        <h3 id="修改操作">
+                                            <a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3>
+                                        <p>如果某一个节点的代表的长度为 $len$，原来的权值为 $val$，区间加 $v$，那么这个节点的权值变为 $val+len\times v$，权值的平方的增量为 $(val+len\times v)^2-val^2=2\times val\times len\times v-len^2\times v^2$，那么我们就需要维护 $val$ 和 $len^2$ 和 $val\times len$。</p>
+                                        <h3 id="如何维护">
+                                            <a href="#如何维护" class="headerlink" title="如何维护"></a>如何维护</h3>
+                                        <p>其中 $val$ 和 $len^2$ 很好维护，只是 $val\times len$ 比较麻烦。</p>
+                                        <p>对于一个节点而言，区间加之后它的权值由 $val$ 变成了 $val+len\times v$，那么 $val\times len$ 变成了 $(val+len\times v)\times len$，增量为 $len^2\times v$，而其中的 $len^2$ 我们可以维护了，因此 $val\times len$ 也可以轻松维护了！</p>
+                                        <p>代码里 $val[i]$ 表示节点 $i$ 的权值，$ans[i]$ 表示子树 $i$ 的答案，$len[i]$ 表示子树内所有节点的 $len^2$ 的和，$sum[i]$ 表示子树内所有节点的 $val\times len$ 的和。</p>
+                                        <p><strong>注意</strong>：这题卡 $\text{long long}$ 因此要用 $\text{unsigned long long}$ 或者 $\text{__int128}$ 或者手写高精度！</p>
+                                        <p><strong>时间复杂度</strong>：$O(n\log n)$</p>
+                                        <hr>
+                                        <h2 id="Code">
+                                            <a href="#Code" class="headerlink" title="Code"></a>Code</h2>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson rt&lt;&lt;1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson rt&lt;&lt;1|1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1e5</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">__int128 val[N&lt;&lt;<span class="number">2</span>],ans[N&lt;&lt;<span class="number">2</span>],len[N&lt;&lt;<span class="number">2</span>],sum[N&lt;&lt;<span class="number">2</span>],tag[N&lt;&lt;<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">__<span class="function">int128 <span class="title">gcd</span><span class="params">(__int128 x,__int128 y)</span> </span>&#123;<span class="keyword">return</span> y?gcd(y,x%y):x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;p;p&gt;&gt;=<span class="number">1</span>,x=<span class="number">1L</span>L*x*x%mod) <span class="keyword">if</span>(p&amp;<span class="number">1</span>) res=<span class="number">1L</span>L*x*res%mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(__int128 x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) print(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r,__int128 x)</span> </span>&#123;</span><br><span class="line">    tag[rt]+=x;</span><br><span class="line">    ans[rt]+=<span class="number">2</span>*x*sum[rt]+len[rt]*x*x;</span><br><span class="line">    val[rt]+=x*(r-l+<span class="number">1</span>);</span><br><span class="line">    sum[rt]+=x*len[rt];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    val[rt]=val[lson]+val[rson];</span><br><span class="line">    sum[rt]=sum[lson]+sum[rson]+val[rt]*(r-l+<span class="number">1</span>);</span><br><span class="line">    ans[rt]=val[rt]*val[rt]+ans[lson]+ans[rson];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushdown</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!tag[rt]) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    update(lson,l,mid,tag[rt]);</span><br><span class="line">    update(rson,mid+<span class="number">1</span>,r,tag[rt]);</span><br><span class="line">    tag[rt]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r) &#123;</span><br><span class="line">        <span class="keyword">int</span> x; <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">        sum[rt]=val[rt]=x,ans[rt]=<span class="number">1L</span>L*x*x,len[rt]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    build(lson,l,mid);</span><br><span class="line">    build(rson,mid+<span class="number">1</span>,r);</span><br><span class="line">    pushup(rt,l,r);</span><br><span class="line">    len[rt]=len[lson]+len[rson]+<span class="number">1L</span>L*(r-l+<span class="number">1</span>)*(r-l+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r,__int128 k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=l&amp;&amp;r&lt;=y) &#123;</span><br><span class="line">        update(rt,l,r,k);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(rt,l,r);</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=mid) modify(x,y,lson,l,mid,k);</span><br><span class="line">    <span class="keyword">if</span>(mid&lt;y) modify(x,y,rson,mid+<span class="number">1</span>,r,k);</span><br><span class="line">    pushup(rt,l,r);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    build(<span class="number">1</span>,<span class="number">1</span>,n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> opt,l,r,v;m--;) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;opt);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;l,&amp;r,&amp;v);</span><br><span class="line">            modify(l,r,<span class="number">1</span>,<span class="number">1</span>,n,v);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            __int128 x=ans[<span class="number">1</span>],y=val[<span class="number">1</span>],d=gcd(x,y);</span><br><span class="line">            x/=d,y/=d,x%=mod;</span><br><span class="line">            print(y==<span class="number">1</span>?x:<span class="number">1L</span>L*x*<span class="built_in">pow</span>(y%mod,mod<span class="number">-2</span>)%mod),<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+
+                                    </div>
+
+
+
+                                    <div>
+
+
+
+                                    </div>
+
+
+
+
+
+                                    <div>
+                                        <ul class="post-copyright">
+                                            <li class="post-copyright-author">
+                                                <strong>本文作者：</strong> Siyuan
+                                            </li>
+                                            <li class="post-copyright-link">
+                                                <strong>本文链接：</strong>
+                                                <a href="http://hydingsy.github.io/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/" title="「Luogu 4927」梦美与线段树">http://hydingsy.github.io/articles/problem-Luogu-4927-Yumemi-Hoshino-and-Segment-Tree/</a>
+                                            </li>
+                                            <li class="post-copyright-license">
+                                                <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+
+                                    <footer class="post-footer">
+
+                                        <div class="post-tags">
+
+                                            <a href="../../tags/%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84/index.html" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+
+                                            <a href="../../tags/%e7%ba%bf%e6%ae%b5%e6%a0%91/index.html" rel="tag"><i class="fa fa-tag"></i> 线段树</a>
+
+                                            <a href="../../tags/Luogu/index.html" rel="tag"><i class="fa fa-tag"></i> Luogu</a>
+
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="post-nav">
+                                            <div class="post-nav-next post-nav-item">
+
+                                                <a href="../algorithm-Mo-Algorithm/index.html" rel="next" title="「算法笔记」莫队算法">
+                                                    <i class="fa fa-chevron-left"></i> 「算法笔记」莫队算法
+                                                </a>
+
+                                            </div>
+
+                                            <span class="post-nav-divider"></span>
+
+                                            <div class="post-nav-prev post-nav-item">
+
+                                                <a href="../problem-BZOJ-4300-the-Best-Problem/index.html" rel="prev" title="「BZOJ 4300」绝世好题">
+                「BZOJ 4300」绝世好题 <i class="fa fa-chevron-right"></i>
+              </a>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </footer>
+                                </div>
+
+
+
+                            </article>
+
+
+
+                            <div class="post-spread">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="comments" id="comments">
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="sidebar-toggle">
+                    <div class="sidebar-toggle-line-wrap">
+                        <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+                    </div>
+                </div>
+
+                <aside id="sidebar" class="sidebar">
+
+                    <div class="sidebar-inner">
+
+
+
+
+                        <ul class="sidebar-nav motion-element">
+                            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+                                文章目录
+                            </li>
+                            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+                                站点概览
+                            </li>
+                        </ul>
+
+
+                        <section class="site-overview-wrap sidebar-panel">
+                            <div class="site-overview">
+                                <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+
+                                    <img class="site-author-image" itemprop="image" src="../../images/avatar.png" alt="Siyuan" />
+
+                                    <p class="site-author-name" itemprop="name">Siyuan</p>
+                                    <p class="site-description motion-element" itemprop="description">Chasing Dream OIer</p>
+                                </div>
+
+                                <nav class="site-state motion-element">
+
+
+                                    <div class="site-state-item site-state-posts">
+
+                                        <a href="../../archives/index.html">
+
+                                            <span class="site-state-item-count">165</span>
+                                            <span class="site-state-item-name">日志</span>
+                                        </a>
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="site-state-item site-state-tags">
+                                        <a href="../../tags/index-2.html">
+                                            <span class="site-state-item-count">147</span>
+                                            <span class="site-state-item-name">标签</span>
+                                        </a>
+                                    </div>
+
+
+                                </nav>
+
+
+                                <div class="feed-link motion-element">
+                                    <a href="../../atom.xml" rel="alternate">
+                                        <i class="fa fa-rss"></i> RSS
+                                    </a>
+                                </div>
+
+
+
+                                <div class="links-of-author motion-element">
+
+                                    <span class="links-of-author-item">
+                    <a href="https://github.com/hydingsy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://codeforces.com/profile/SiyuanQAQ" target="_blank" title="Codeforces">
+                      
+                        <i class="fa fa-fw fa-code"></i>Codeforces</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=294873684" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="mailto:294873684@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/dingsiyuan" target="_blank" title="Zhihu">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>Zhihu</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://t.me/hydingsy" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </section>
+
+
+                        <!--noindex-->
+                        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+                            <div class="post-toc">
+
+
+
+
+
+
+                                <div class="post-toc-content">
+                                    <ol class="nav">
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#Description"><span class="nav-number">1.</span> <span class="nav-text">Description</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">2.</span> <span class="nav-text">Solution</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#计算答案"><span class="nav-number">2.1.</span> <span class="nav-text">计算答案</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">2.2.</span> <span class="nav-text">修改操作</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#如何维护"><span class="nav-number">2.3.</span> <span class="nav-text">如何维护</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">3.</span> <span class="nav-text">Code</span></a></li>
+                                    </ol>
+                                </div>
+
+
+                            </div>
+                        </section>
+                        <!--/noindex-->
+
+
+
+
+                    </div>
+                </aside>
+
+
+
+            </div>
+        </main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+                    <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+                    <span class="author" itemprop="copyrightHolder">Siyuan</span>
+
+
+                    <span class="post-meta-divider">|</span>
+                    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+
+                    <span class="post-meta-item-text">Site words total count&#58;</span>
+
+                    <span title="Site words total count">145.4k</span>
+
+                </div>
+
+
+                <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io/">Hexo</a> 强力驱动</div>
+
+
+
+                <span class="post-meta-divider">|</span>
+
+
+
+                <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+                <div class="busuanzi-count">
+                    <script async src="../../../busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+                    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+                    <i class="fa fa-eye"></i>
+                    </span>
+
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </footer>
+
+
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i>
+
+            <span id="scrollpercent"><span>0</span>%</span>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+            window.Promise = null;
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery/index62ba.js?v=2.1.3"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.minc924.js?v=1.0.6"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyloada045.js?v=1.9.7"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.ui.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack8cbb.js?v=2.1.5"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/utilsf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/motionf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/affixf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/schemes/piscesf99e.js?v=5.1.4"></script>
+
+
+
+
+    <script type="text/javascript" src="../../js/src/scrollspyf99e.js?v=5.1.4"></script>
+    <script type="text/javascript" src="../../js/src/post-detailsf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/bootstrapf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/3.0.4/av-min.js_%3b%20filename_%3dutf-8%27%27av-min.js"></script>
+    <script src="../../../unpkg.com/valine%401.4.14/dist/Valine.min.js"></script>
+
+    <script type="text/javascript">
+        var GUEST = ['nick', 'mail', 'link'];
+        var guest = 'nick,mail,link';
+        guest = guest.split(',').filter(item => {
+            return GUEST.indexOf(item) > -1;
+        });
+        new Valine({
+            el: '#comments',
+            verify: false,
+            notify: false,
+            appId: '9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz',
+            appKey: '9hUlOM7niDIXYhbgCubnJHyU',
+            placeholder: 'ヾﾉ≧∀≦)o 来啊，快活啊！',
+            avatar: 'mm',
+            guest_info: guest,
+            pageSize: '10' || 10,
+        });
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        // Popup Window;
+        var isfetched = false;
+        var isXml = true;
+        // Search DB path;
+        var search_path = "search.html";
+        if (search_path.length === 0) {
+            search_path = "search.html";
+        } else if (/json$/i.test(search_path)) {
+            isXml = false;
+        }
+        var path = "/" + search_path;
+        // monitor main search box;
+
+        var onPopupClose = function(e) {
+            $('.popup').hide();
+            $('#local-search-input').val('');
+            $('.search-result-list').remove();
+            $('#no-result').remove();
+            $(".local-search-pop-overlay").remove();
+            $('body').css('overflow', '');
+        }
+
+        function proceedsearch() {
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+                .css('overflow', 'hidden');
+            $('.search-popup-overlay').click(onPopupClose);
+            $('.popup').toggle();
+            var $localSearchInput = $('#local-search-input');
+            $localSearchInput.attr("autocapitalize", "none");
+            $localSearchInput.attr("autocorrect", "off");
+            $localSearchInput.focus();
+        }
+
+        // search function;
+        var searchFunc = function(path, search_id, content_id) {
+            'use strict';
+
+            // start loading animation
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                    '<div id="search-loading-icon">' +
+                    '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                    '</div>' +
+                    '</div>')
+                .css('overflow', 'hidden');
+            $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+            $.ajax({
+                url: path,
+                dataType: isXml ? "xml" : "json",
+                async: true,
+                success: function(res) {
+                    // get the contents from search data
+                    isfetched = true;
+                    $('.popup').detach().appendTo('.header-inner');
+                    var datas = isXml ? $("entry", res).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get() : res;
+                    var input = document.getElementById(search_id);
+                    var resultContent = document.getElementById(content_id);
+                    var inputEventFunction = function() {
+                        var searchText = input.value.trim().toLowerCase();
+                        var keywords = searchText.split(/[\s\-]+/);
+                        if (keywords.length > 1) {
+                            keywords.push(searchText);
+                        }
+                        var resultItems = [];
+                        if (searchText.length > 0) {
+                            // perform local searching
+                            datas.forEach(function(data) {
+                                var isMatch = false;
+                                var hitCount = 0;
+                                var searchTextCount = 0;
+                                var title = data.title.trim();
+                                var titleInLowerCase = title.toLowerCase();
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                var contentInLowerCase = content.toLowerCase();
+                                var articleUrl = decodeURIComponent(data.url);
+                                var indexOfTitle = [];
+                                var indexOfContent = [];
+                                // only match articles with not empty titles
+                                if (title != '') {
+                                    keywords.forEach(function(keyword) {
+                                        function getIndexByWord(word, text, caseSensitive) {
+                                            var wordLen = word.length;
+                                            if (wordLen === 0) {
+                                                return [];
+                                            }
+                                            var startPosition = 0,
+                                                position = [],
+                                                index = [];
+                                            if (!caseSensitive) {
+                                                text = text.toLowerCase();
+                                                word = word.toLowerCase();
+                                            }
+                                            while ((position = text.indexOf(word, startPosition)) > -1) {
+                                                index.push({
+                                                    position: position,
+                                                    word: word
+                                                });
+                                                startPosition = position + wordLen;
+                                            }
+                                            return index;
+                                        }
+
+                                        indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                        indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                                    });
+                                    if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                        isMatch = true;
+                                        hitCount = indexOfTitle.length + indexOfContent.length;
+                                    }
+                                }
+
+                                // show search results
+
+                                if (isMatch) {
+                                    // sort index by position of keyword
+
+                                    [indexOfTitle, indexOfContent].forEach(function(index) {
+                                        index.sort(function(itemLeft, itemRight) {
+                                            if (itemRight.position !== itemLeft.position) {
+                                                return itemRight.position - itemLeft.position;
+                                            } else {
+                                                return itemLeft.word.length - itemRight.word.length;
+                                            }
+                                        });
+                                    });
+
+                                    // merge hits into slices
+
+                                    function mergeIntoSlice(text, start, end, index) {
+                                        var item = index[index.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        var hits = [];
+                                        var searchTextCountInSlice = 0;
+                                        while (position + word.length <= end && index.length != 0) {
+                                            if (word === searchText) {
+                                                searchTextCountInSlice++;
+                                            }
+                                            hits.push({
+                                                position: position,
+                                                length: word.length
+                                            });
+                                            var wordEnd = position + word.length;
+
+                                            // move to next position of hit
+
+                                            index.pop();
+                                            while (index.length != 0) {
+                                                item = index[index.length - 1];
+                                                position = item.position;
+                                                word = item.word;
+                                                if (wordEnd > position) {
+                                                    index.pop();
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        searchTextCount += searchTextCountInSlice;
+                                        return {
+                                            hits: hits,
+                                            start: start,
+                                            end: end,
+                                            searchTextCount: searchTextCountInSlice
+                                        };
+                                    }
+
+                                    var slicesOfTitle = [];
+                                    if (indexOfTitle.length != 0) {
+                                        slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                                    }
+
+                                    var slicesOfContent = [];
+                                    while (indexOfContent.length != 0) {
+                                        var item = indexOfContent[indexOfContent.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        // cut out 100 characters
+                                        var start = position - 20;
+                                        var end = position + 80;
+                                        if (start < 0) {
+                                            start = 0;
+                                        }
+                                        if (end < position + word.length) {
+                                            end = position + word.length;
+                                        }
+                                        if (end > content.length) {
+                                            end = content.length;
+                                        }
+                                        slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                                    }
+
+                                    // sort slices in content by search text's count and hits' count
+
+                                    slicesOfContent.sort(function(sliceLeft, sliceRight) {
+                                        if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                            return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                        } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                            return sliceRight.hits.length - sliceLeft.hits.length;
+                                        } else {
+                                            return sliceLeft.start - sliceRight.start;
+                                        }
+                                    });
+
+                                    // select top N slices in content
+
+                                    var upperBound = parseInt('1');
+                                    if (upperBound >= 0) {
+                                        slicesOfContent = slicesOfContent.slice(0, upperBound);
+                                    }
+
+                                    // highlight title and content
+
+                                    function highlightKeyword(text, slice) {
+                                        var result = '';
+                                        var prevEnd = slice.start;
+                                        slice.hits.forEach(function(hit) {
+                                            result += text.substring(prevEnd, hit.position);
+                                            var end = hit.position + hit.length;
+                                            result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                            prevEnd = end;
+                                        });
+                                        result += text.substring(prevEnd, slice.end);
+                                        return result;
+                                    }
+
+                                    var resultItem = '';
+
+                                    if (slicesOfTitle.length != 0) {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                                    } else {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                                    }
+
+                                    slicesOfContent.forEach(function(slice) {
+                                        resultItem += "<a href='" + articleUrl + "'>" +
+                                            "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                            "...</p>" + "</a>";
+                                    });
+
+                                    resultItem += "</li>";
+                                    resultItems.push({
+                                        item: resultItem,
+                                        searchTextCount: searchTextCount,
+                                        hitCount: hitCount,
+                                        id: resultItems.length
+                                    });
+                                }
+                            })
+                        };
+                        if (keywords.length === 1 && keywords[0] === "") {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+                        } else if (resultItems.length === 0) {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+                        } else {
+                            resultItems.sort(function(resultLeft, resultRight) {
+                                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                    return resultRight.searchTextCount - resultLeft.searchTextCount;
+                                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                    return resultRight.hitCount - resultLeft.hitCount;
+                                } else {
+                                    return resultRight.id - resultLeft.id;
+                                }
+                            });
+                            var searchResultList = '<ul class=\"search-result-list\">';
+                            resultItems.forEach(function(result) {
+                                searchResultList += result.item;
+                            })
+                            searchResultList += "</ul>";
+                            resultContent.innerHTML = searchResultList;
+                        }
+                    }
+
+                    if ('auto' === 'auto') {
+                        input.addEventListener('input', inputEventFunction);
+                    } else {
+                        $('.search-icon').click(inputEventFunction);
+                        input.addEventListener('keypress', function(event) {
+                            if (event.keyCode === 13) {
+                                inputEventFunction();
+                            }
+                        });
+                    }
+
+                    // remove loading animation
+                    $(".local-search-pop-overlay").remove();
+                    $('body').css('overflow', '');
+
+                    proceedsearch();
+                }
+            });
+        }
+
+        // handle and trigger popup window;
+        $('.popup-trigger').click(function(e) {
+            e.stopPropagation();
+            if (isfetched === false) {
+                searchFunc(path, 'local-search-input', 'local-search-result');
+            } else {
+                proceedsearch();
+            };
+        });
+
+        $('.popup-btn-close').click(onPopupClose);
+        $('.popup').click(function(e) {
+            e.stopPropagation();
+        });
+        $(document).on('keyup', function(event) {
+            var shouldDismissSearchPopup = event.which === 27 &&
+                $('.search-popup').is(':visible');
+            if (shouldDismissSearchPopup) {
+                onPopupClose();
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/av-core-mini-0.6.4.js_%3b%20filename_%3dutf-8%27%27av-core-mini-0.6.4.js"></script>
+    <script>
+        AV.initialize("9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz", "9hUlOM7niDIXYhbgCubnJHyU");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            var entries = [];
+            var $visitors = $(".leancloud_visitors");
+
+            $visitors.each(function() {
+                entries.push($(this).attr("id").trim());
+            });
+
+            query.containedIn('url', entries);
+            query.find()
+                .done(function(results) {
+                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+                    if (results.length === 0) {
+                        $visitors.find(COUNT_CONTAINER_REF).text(0);
+                        return;
+                    }
+
+                    for (var i = 0; i < results.length; i++) {
+                        var item = results[i];
+                        var url = item.get('url');
+                        var time = item.get('time');
+                        var element = document.getElementById(url);
+
+                        $(element).find(COUNT_CONTAINER_REF).text(time);
+                    }
+                    for (var i = 0; i < entries.length; i++) {
+                        var url = entries[i];
+                        var element = document.getElementById(url);
+                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                        if (countSpan.text() == '') {
+                            countSpan.text(0);
+                        }
+                    }
+                })
+                .fail(function(object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                });
+        }
+
+        function addCount(Counter) {
+            var $visitors = $(".leancloud_visitors");
+            var url = $visitors.attr('id').trim();
+            var title = $visitors.attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+
+            query.equalTo("url", url);
+            query.find({
+                success: function(results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function(counter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                            },
+                            error: function(counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        /* Set ACL */
+                        var acl = new AV.ACL();
+                        acl.setPublicReadAccess(true);
+                        acl.setPublicWriteAccess(true);
+                        newcounter.setACL(acl);
+                        /* End Set ACL */
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function(newcounter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                            },
+                            error: function(newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+
+        $(function() {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+
+
+
+
+
+
+    <script>
+        (function() {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = '../../../zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = '../../../push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true, skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } });
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for (i=0; i
+        < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+            <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJaxdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <!-- hexo-inject:begin -->
+            <!-- Begin: Injected MathJax -->
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+            </script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for(i=0; i
+                < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+
+                    <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+                    </script>
+                    <!-- End: Injected MathJax -->
+                    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+
+<head>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+    <script src="../../lib/pace/pace.min0ff5.js?v=1.0.2"></script>
+    <link href="../../lib/pace/pace-theme-minimal.min0ff5.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link href="../../lib/fancybox/source/jquery.fancybox8cbb.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+    <link href="../../lib/font-awesome/css/font-awesome.min9efe.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+    <link href="../../css/mainf99e.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32x32-nextf99e.png?v=5.1.4">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/favicon-16x16-nextf99e.png?v=5.1.4">
+
+
+    <link rel="mask-icon" href="../../images/logof99e.svg?v=5.1.4" color="#222">
+
+
+
+
+
+    <meta name="keywords" content="算法笔记,数据结构,LCT,Splay," />
+
+
+
+
+
+    <link rel="alternate" href="../../atom.xml" title="Siyuan's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+    <meta name="description" content="动态树问题，即要求我们维护一个由若干棵子结点无序的有根树组成的森林。要求这个数据结构支持对树的分割、合并，对某个点到它的根的路径的某些操作。">
+    <meta name="keywords" content="算法笔记,数据结构,LCT,Splay">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「算法笔记」Link-Cut Tree">
+    <meta property="og:url" content="http://hydingsy.github.io/articles/algorithm-Link-Cut-Tree/index.html">
+    <meta property="og:site_name" content="Siyuan&#39;s Blog">
+    <meta property="og:description" content="动态树问题，即要求我们维护一个由若干棵子结点无序的有根树组成的森林。要求这个数据结构支持对树的分割、合并，对某个点到它的根的路径的某些操作。">
+    <meta property="og:locale" content="zh-Hans">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_1.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_2.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_3.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_4.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_5.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_6.png">
+    <meta property="og:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_7.png">
+    <meta property="og:updated_time" content="2019-03-09T12:36:15.943Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="「算法笔记」Link-Cut Tree">
+    <meta name="twitter:description" content="动态树问题，即要求我们维护一个由若干棵子结点无序的有根树组成的森林。要求这个数据结构支持对树的分割、合并，对某个点到它的根的路径的某些操作。">
+    <meta name="twitter:image" content="http://hydingsy.github.io/images/Link-Cut-Tree_1.png">
+
+
+
+    <script type="text/javascript" id="hexo.configurations">
+        var NexT = window.NexT || {};
+        var CONFIG = {
+            root: '/',
+            scheme: 'Pisces',
+            version: '5.1.4',
+            sidebar: {
+                "position": "left",
+                "display": "post",
+                "offset": 12,
+                "b2t": false,
+                "scrollpercent": true,
+                "onmobile": false
+            },
+            fancybox: true,
+            tabs: true,
+            motion: {
+                "enable": true,
+                "async": false,
+                "transition": {
+                    "post_block": "fadeIn",
+                    "post_header": "slideDownIn",
+                    "post_body": "slideDownIn",
+                    "coll_header": "slideLeftIn",
+                    "sidebar": "slideUpIn"
+                }
+            },
+            duoshuo: {
+                userId: '0',
+                author: '博主'
+            },
+            algolia: {
+                applicationID: '',
+                apiKey: '',
+                indexName: '',
+                hits: {
+                    "per_page": 10
+                },
+                labels: {
+                    "input_placeholder": "Search for Posts",
+                    "hits_empty": "We didn't find any results for the search: ${query}",
+                    "hits_stats": "${hits} results found in ${time} ms"
+                }
+            }
+        };
+    </script>
+
+
+
+    <link rel="canonical" href="http://hydingsy.github.io/articles/algorithm-Link-Cut-Tree/" />
+
+
+
+
+
+    <title>「算法笔记」Link-Cut Tree | Siyuan's Blog</title>
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+
+
+
+
+
+    <!-- hexo-inject:begin -->
+    <!-- hexo-inject:end -->
+    <div class="container sidebar-position-left page-post-detail">
+        <div class="headband"></div>
+        <a href="https://github.com/hydingsy" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+        <style>
+            .github-corner:hover .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+            
+            @keyframes octocat-wave {
+                0%,
+                100% {
+                    transform: rotate(0)
+                }
+                20%,
+                60% {
+                    transform: rotate(-25deg)
+                }
+                40%,
+                80% {
+                    transform: rotate(10deg)
+                }
+            }
+            
+            @media (max-width:500px) {
+                .github-corner:hover .octo-arm {
+                    animation: none
+                }
+                .github-corner .octo-arm {
+                    animation: octocat-wave 560ms ease-in-out
+                }
+            }
+        </style>
+        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+            <div class="header-inner">
+                <div class="site-brand-wrapper">
+                    <div class="site-meta ">
+
+
+                        <div class="custom-logo-site-title">
+                            <a href="../../index.html" class="brand" rel="start">
+                                <span class="logo-line-before"><i></i></span>
+                                <span class="site-title">Siyuan's Blog</span>
+                                <span class="logo-line-after"><i></i></span>
+                            </a>
+                        </div>
+
+                        <p class="site-subtitle">你强归你强，我永不示弱！</p>
+
+                    </div>
+
+                    <div class="site-nav-toggle">
+                        <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+                    </div>
+                </div>
+
+                <nav class="site-nav">
+
+
+
+                    <ul id="menu" class="menu">
+
+
+                        <li class="menu-item menu-item-home">
+                            <a href="../../index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-home"></i> <br /> 首页
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-about">
+                            <a href="../../about/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-user"></i> <br /> 关于
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-archives">
+                            <a href="../../archives/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-archive"></i> <br /> 归档
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-tags">
+                            <a href="../../tags/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-tags"></i> <br /> 标签
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-friends">
+                            <a href="../../friends/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-users"></i> <br /> 友链
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-resources">
+                            <a href="../../resources/index.html" rel="section">
+
+                                <i class="menu-item-icon fa fa-fw fa-link"></i> <br /> 资源
+                            </a>
+                        </li>
+
+
+
+                        <li class="menu-item menu-item-search">
+
+                            <a href="javascript:;" class="popup-trigger">
+
+
+                                <i class="menu-item-icon fa fa-search fa-fw"></i> <br /> 搜索
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+                    <div class="site-search">
+
+                        <div class="popup search-popup local-search-popup">
+                            <div class="local-search-header clearfix">
+                                <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+                                <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+                                <div class="local-search-input-wrapper">
+                                    <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+                                </div>
+                            </div>
+                            <div id="local-search-result"></div>
+                        </div>
+
+
+
+                    </div>
+
+                </nav>
+
+
+
+            </div>
+        </header>
+
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+
+
+                        <div id="posts" class="posts-expand">
+
+
+
+
+
+
+
+
+                            <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+
+
+
+                                <div class="post-block">
+                                    <link itemprop="mainEntityOfPage" href="http://hydingsy.github.io/articles/algorithm-Link-Cut-Tree/">
+
+                                    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.png">
+    </span>
+
+                                    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyuan's Blog">
+    </span>
+
+
+                                    <header class="post-header">
+
+
+
+                                        <h1 class="post-title" itemprop="name headline">「算法笔记」Link-Cut Tree</h1>
+
+
+                                        <div class="post-meta">
+
+                                            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+
+                                            <span class="post-meta-item-text">发表于</span>
+
+                                            <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-08T00:00:00+08:00">
+                2019-02-08
+              </time>
+
+
+
+
+
+                                            </span>
+
+
+
+
+
+                                            <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                                            <a href="index.html#comments" itemprop="discussionUrl">
+                                                <span class="post-comments-count valine-comment-count" data-xid="/articles/algorithm-Link-Cut-Tree/" itemprop="commentCount"></span>
+                                            </a>
+                                            </span>
+
+
+
+
+
+                                            <span id="/articles/algorithm-Link-Cut-Tree/" class="leancloud_visitors" data-flag-title="「算法笔记」Link-Cut Tree">
+               <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+
+                                            <span class="post-meta-item-text">阅读次数&#58;</span>
+
+                                            <span class="leancloud-visitors-count"></span>
+                                            </span>
+
+
+
+
+
+                                            <div class="post-wordcount">
+
+
+                                                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+
+                                                <span class="post-meta-item-text">字数统计&#58;</span>
+
+                                                <span title="字数统计">
+                  2.8k 字
+                </span>
+
+
+
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </header>
+
+
+
+
+
+                                    <div class="post-body" itemprop="articleBody">
+
+
+
+
+
+                                        <blockquote class="blockquote-center">动态树问题，即要求我们维护一个由若干棵子结点无序的有根树组成的森林。要求这个数据结构支持对树的分割、合并，对某个点到它的根的路径的某些操作。</blockquote>
+
+                                        <a id="more"></a>
+                                        <h2 id="前置知识">
+                                            <a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2>
+                                        <p>$\text{Splay}​$：博客文章详见<a href="https://hydingsy.github.io/articles/algorithm-Splay-1/" target="_blank" rel="noopener">「算法笔记」Splay 维护二叉查找树</a></p>
+                                        <hr>
+                                        <h2 id="链剖分">
+                                            <a href="#链剖分" class="headerlink" title="链剖分"></a>链剖分</h2>
+                                        <h3 id="重链剖分">
+                                            <a href="#重链剖分" class="headerlink" title="重链剖分"></a>重链剖分</h3>
+                                        <p>我们所谓的<strong>树剖</strong>，就是重链剖分的常用称呼。对于每个点，我们选择其最大的子树，将这条连边划分为<strong>重边</strong>，连向其余子树的边化为分<strong>轻边</strong>。</p>
+                                        <h3 id="长链剖分">
+                                            <a href="#长链剖分" class="headerlink" title="长链剖分"></a>长链剖分</h3>
+                                        <p>对每个点选择其深度最大的儿子作为重儿子，连边即为<strong>重边</strong>，其余作为轻儿子，连边即为<strong>轻边</strong>。由此得到了若干条互不相交的长链。</p>
+                                        <h3 id="实链剖分">
+                                            <a href="#实链剖分" class="headerlink" title="实链剖分"></a>实链剖分</h3>
+                                        <p>同样将某一个儿子的连边为<strong>实边</strong>，其余儿子的连边为<strong>虚边</strong>。只不过虚实是可以<strong>动态变化</strong>的，因此我们需要用更高级、更灵活的数据结构 $\text{Splay}$ 来维护每一条<strong>实链</strong>。</p>
+                                        <p>基于性质更加优秀的实链剖分，$\text{LCT}$（$\text{Link-Cut Tree}$）应运而生。</p>
+                                        <hr>
+                                        <h2 id="性质">
+                                            <a href="#性质" class="headerlink" title="性质"></a>性质</h2>
+                                        <ol>
+                                            <li>
+                                                <p>每一个 $\text{Splay}$ 维护的是一条<strong>从上到下</strong>在原树中<strong>深度严格递增</strong>的<strong>链</strong>，且<strong>中序遍历</strong> $\text{Splay}$ 得到的点的深度严格递增。</p>
+                                            </li>
+                                            <li>
+                                                <p>每个节点包含且仅包含在一个 $\text{Splay}$ 中。</p>
+                                            </li>
+                                            <li>
+                                                <p>边分为且仅分为<strong>实边</strong>和<strong>虚边</strong>，所有实边包含在 $\text{Splay}$ 中，而虚边总是由一棵 $\text{Splay}$ 指向另一个节点（指向该 $\text{Splay}​$ 中序遍历最靠前的节点在原树中的父亲）。</p>
+                                                <p>为了保持树的形态，我们要让它到其他儿子的边变为虚边，由对应儿子所属的 $\text{Splay}​$ 的根节点的父亲指向该点，而该点不能直接访问该儿子（认父不认子）。</p>
+                                            </li>
+                                        </ol>
+                                        <hr>
+                                        <h2 id="操作">
+                                            <a href="#操作" class="headerlink" title="操作"></a>操作</h2>
+                                        <p>我们首先认识一下 $\text{LCT}$ 支持的操作类型：</p>
+                                        <ul>
+                                            <li>查询、修改链上的信息。</li>
+                                            <li>对某一个树进行换根操作。</li>
+                                            <li>动态连边、删边。</li>
+                                            <li>动态维护连通性。</li>
+                                            <li><del>其他神奇的操作。</del></li>
+                                        </ul>
+                                        <h3 id="access-x">
+                                            <a href="#access-x" class="headerlink" title="access(x)"></a>access(x)</h3>
+                                        <p><strong>功能</strong>：将根节点到 $x$ 上的边都变为实边。</p>
+                                        <p>假如我们有一棵树，实边和虚边一开始是这样划分的（图片引用于 <a href="https://wenku.baidu.com/view/75906f160b4e767f5acfcedb" target="_blank" rel="noopener">YangZhe 的论文</a> 和 <a href="https://www.cnblogs.com/flashhu/p/8324551.html" target="_blank"
+                                                rel="noopener">FlashHu 的博客</a>）：</p>
+                                        <p><img src="../../images/Link-Cut-Tree_1.png" alt=""></p>
+                                        <p>那么构成的 $\text{LCT}$ 可能长成这样（绿框中为一个 $\text{Splay}​$，<strong>形态不唯一</strong>，但是只要满足中序遍历按照深度递增，对结果就没有影响）：</p>
+                                        <p><img src="../../images/Link-Cut-Tree_2.png" alt=""></p>
+                                        <p>现在我们要执行 $\text{access}(N)$ 操作，把 $A\sim N$ 路径上的边都变成<strong>实边</strong>，形成一个 $\text{Splay}$。由于性质 $2$，那么肯定<strong>有些实边要变为虚边</strong>。我们可以得到这样的重新划分：</p>
+                                        <p><img src="../../images/Link-Cut-Tree_3.png" alt=""></p>
+                                        <p>那么如何实现 $\text{access}(N)$ 的操作呢？</p>
+                                        <p>我们从 $N$ 这个点一步步<strong>往上</strong>进行操作。首先把 $N$ 进行 $\text{splay}$ 操作，使得它变成这个 $\text{Splay}​$ 中的<strong>根节点</strong>。</p>
+                                        <p>为了满足性质 $2​$，那么 $(N,O)​$ 这条边需要从实边变为虚边。由于 $O​$ 的深度比 $N​$ 大，在 $\text{Splay}​$ 中的表现形式就是 $O​$ 在 $N​$ 的<strong>右子树</strong>中，那么直接把 $N​$ 的<strong>右儿子变为空</strong>（认父不认子）。得到如图形式：</p>
+                                        <p><img src="../../images/Link-Cut-Tree_4.png" alt=""></p>
+                                        <p>接着我们把 $N$ 所属的 $\text{Splay}$ 的<strong>虚边</strong>指向的 $I$（在原树上 $I$ 是 $L$ 的父亲）也转到所属的 $\text{Splay}$ 的根节点，那么边 $(I,K)$ 边需要变为虚边，同时去掉右儿子。这时候把 $(I,N)​$ 变成实边即可。</p>
+                                        <p><img src="../../images/Link-Cut-Tree_5.png" alt=""></p>
+                                        <p>接下来同理进行一系列操作：</p>
+                                        <p>由于 $I$ 所属 $\text{Splay}$ 指向 $H$，故 $\text{splay(H)}$，将 $H$ 的右儿子变为 $I​$。</p>
+                                        <p><img src="../../images/Link-Cut-Tree_6.png" alt=""></p>
+                                        <p>由于 $H$ 所属 $\text{Splay}$ 指向 $A$，故 $\text{splay(A)}$，将 $A$ 的右儿子变为 $H$。</p>
+                                        <p><img src="../../images/Link-Cut-Tree_7.png" alt=""></p>
+                                        <p>至此，$A\sim N$ 的路径上的边都变成实边了，而总结整个过程，我们发现只有如下 $4$ 步：</p>
+                                        <ol>
+                                            <li>将节点转到所属 $\text{Splay}$ 的根。</li>
+                                            <li>将其右儿子删除，变为删一个 $\text{Splay}​$ 的根节点。</li>
+                                            <li>更新节点信息。</li>
+                                            <li>将当前点变为虚边所指的父亲，转到步骤 $1$。</li>
+                                        </ol>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">access</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> y=<span class="number">0</span>;x;x=fa[y=x]) splay(x),ch[x][<span class="number">1</span>]=y,pushup(x);</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="makeroot-x">
+                                            <a href="#makeroot-x" class="headerlink" title="makeroot(x)"></a>makeroot(x)</h3>
+                                        <p><strong>功能</strong>：将 $x​$ 成为原树的根节点。</p>
+                                        <p>我们首先进行 $\text{access}(x)$ 操作，这样一来我们得到了一条从根节点到 $x$ 的链，$x$ 一定是这个 $\text{Splay}$ 中深度最大的点。根据性质 $1$，在这个 $\text{Splay}$ 中 $x$ 一定没有右子树（没有比 $x$ 深度更大的点）。我们直接<strong>翻转</strong>整个 $\text{Splay}$，使得所有点的深度都倒过来，$x$ 就没有了左子树，成为了<strong>深度最小</strong>的点，也就成为了根节点。注意要给这个
+                                            $\text{Splay}​$ 打上<strong>翻转懒标记</strong>。</p>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">makeroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    access(x),splay(x),rev(x);</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="findroot-x">
+                                            <a href="#findroot-x" class="headerlink" title="findroot(x)"></a>findroot(x)</h3>
+                                        <p><strong>功能</strong>：找到 $x$ 所在的树的根，主要用来判断两点之间的连通性。</p>
+                                        <p>我们利用这样一个性质：一棵树的根节点一定是<strong>深度最小的点</strong>。那么我们先用 $\text{access}(x)$ 把 $x$ 先和根连成一条链，然后用 $\text{splay}(x)$ 将 $x$ 旋转到 $\text{Splay}$ 的根节点。之后根节点一定是 $x​$ 不断<strong>往左走</strong>得到的（越往左深度越小）。注意在往左走的过程中一定要<strong>下传标记</strong>！</p>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    access(x),splay(x);</span><br><span class="line">    pushdown(x);</span><br><span class="line">    <span class="keyword">while</span>(ch[x][<span class="number">0</span>]) pushdown(x=ch[x][<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="split-x-y">
+                                            <a href="#split-x-y" class="headerlink" title="split(x,y)"></a>split(x,y)</h3>
+                                        <p><strong>功能</strong>：得到 $x$ 到 $y$ 的一条路径，其中 $y$ 是为路径所在 $\text{Splay}$ 的根节点。</p>
+                                        <p>我们可以通过上面的函数直接写出 $\text{split}$ 函数。先把 $x$ 作为根节点，然后得到根节点到 $y$ 的链，将 $y$ 旋转到 $\text{Splay}$ 的根即可。</p>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">split</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    makeroot(x),access(y),splay(y);</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="link-x-y">
+                                            <a href="#link-x-y" class="headerlink" title="link(x,y)"></a>link(x,y)</h3>
+                                        <p><strong>功能</strong>：连一条虚边 $(x,y)$（如果已经连通则不操作）。</p>
+                                        <p>我们将 $x$ 变成原树的根，然后将 $x$ 的<strong>父节点</strong>直接设为 $y$ 即可。因为在 $\text{findroot}(y)$ 中已经执行了 $\text{access}(y)$ 和 $\text{splay}(y)$，则 $y$ 成为了所在 $\text{Splay}​$ 的根节点。</p>
+                                        <p>连通性的检查：$x$ 成为根节点后，如果 $\text{findroot}(y)=x$ 则说明 $x,y$ 连通。</p>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">link</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    makeroot(x);</span><br><span class="line">    <span class="keyword">if</span>(findroot(y)!=x) fa[x]=y;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="cut-x-y">
+                                            <a href="#cut-x-y" class="headerlink" title="cut(x,y)"></a>cut(x,y)</h3>
+                                        <p><strong>功能</strong>：切断边 $(x,y)$（如果没有边则不进行操作）</p>
+                                        <p>首先我们把 $x$ 变成根节点，如果存在边 $(x,y)$，那么 $x$ 的深度一定比 $y$ 浅，则 $x$ 是 $y$ 的<strong>左儿子</strong>，$y$ 是 $x​$ 的<strong>父节点</strong>。</p>
+                                        <p>但是如果不保证操作合法呢？我们需要很多条件来判断 $(x,y)$ 这条边是不存在的。不存在边 $(x,y)​$ 的条件（满足一者即可）：</p>
+                                        <ol>
+                                            <li>如果 $x,y$ <strong>不在同一棵树内</strong>，那么不存在边。</li>
+                                            <li>如果 $x$ 的<strong>父亲</strong>不是 $y$，则意味着 $x,y$ 虽然在同一个 $\text{Splay}$ 中却没有连边。</li>
+                                            <li>如果 $x$ 的<strong>右子树非空</strong>，那么意味着以 $y$ 为根的中序遍历中 $x$ 和 $y​$ 不相邻，则没有边相连。</li>
+                                        </ol>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cut</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    makeroot(x);</span><br><span class="line">    <span class="keyword">if</span>(findroot(y)==x&amp;&amp;fa[x]==y&amp;&amp;!ch[x][<span class="number">1</span>]) fa[x]=ch[y][<span class="number">0</span>]=<span class="number">0</span>,pushup(y);</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <hr>
+                                        <h2 id="区别">
+                                            <a href="#区别" class="headerlink" title="区别"></a>区别</h2>
+                                        <h3 id="rotate-x">
+                                            <a href="#rotate-x" class="headerlink" title="rotate(x)"></a>rotate(x)</h3>
+                                        <p><strong>功能</strong>：将 $x​$ 向上旋转。</p>
+                                        <p>和普通 $\text{Splay}​$ 不同的是，我们在修改 $x​$ 的祖父的儿子时，必须判断 $x​$ 的父亲是否为所在 $\text{Splay}​$ 的根。因为如果不判断的话，$0​$ 的儿子就会被定义为 $x​$，而 $x​$ 则永远不可能成为根节点，在 $\text{splay}​$ 函数中将会无限循环。</p>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> y=fa[x],z=fa[y],k=get(x);</span><br><span class="line">    !isroot(y)&amp;&amp;(ch[z][get(y)]=x),fa[x]=z;</span><br><span class="line">    ch[y][k]=ch[x][k^<span class="number">1</span>],fa[ch[x][k^<span class="number">1</span>]]=y;</span><br><span class="line">    ch[x][k^<span class="number">1</span>]=y,fa[y]=x;</span><br><span class="line">    pushup(y),pushup(x);</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <h3 id="splay-x">
+                                            <a href="#splay-x" class="headerlink" title="splay(x)"></a>splay(x)</h3>
+                                        <p><strong>功能</strong>：将 $x​$ 旋转到 $\text{Splay}​$ 的根节点。</p>
+                                        <p>由于 $\text{LCT}$ 中对 $\text{Splay}$ 有翻转操作，那么我们在 $\text{splay}(x)$ 之前，必须将 $x$ 的所有祖先的<strong>标记下放</strong>，我们用一个栈来保存所有的祖先并依次下放标记。</p>
+                                        <p><strong>代码</strong></p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">splay</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> u=x,tp=<span class="number">0</span>;</span><br><span class="line">    st[++tp]=u;</span><br><span class="line">    <span class="keyword">while</span>(!isroot(u)) st[++tp]=u=fa[u];</span><br><span class="line">    <span class="keyword">while</span>(tp) pushdown(st[tp--]);</span><br><span class="line">    <span class="keyword">while</span>(!isroot(x)) &#123;</span><br><span class="line">        <span class="keyword">int</span> y=fa[x];</span><br><span class="line">        <span class="keyword">if</span>(!isroot(y)) rotate(get(x)==get(y)?y:x);</span><br><span class="line">        rotate(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <hr>
+                                        <h2 id="代码">
+                                            <a href="#代码" class="headerlink" title="代码"></a>代码</h2>
+                                        <p>以<a href="https://www.luogu.org/problemnew/show/P3690" target="_blank" rel="noopener">「Luogu 3690」Link Cut Tree</a> 为例。</p>
+                                        <figure class="highlight cpp">
+                                            <table>
+                                                <tr>
+                                                    <td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td>
+                                                    <td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ls(x) ch[x][0]</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rs(x) ch[x][1]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">3e5</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,fa[N],ch[N][<span class="number">2</span>],val[N],sum[N],st[N];</span><br><span class="line"><span class="keyword">bool</span> r[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> rs(fa[x])==x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ls(fa[x])!=x&amp;&amp;rs(fa[x])!=x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rev</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    r[x]^=<span class="number">1</span>,<span class="built_in">std</span>::swap(ls(x),rs(x));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    sum[x]=sum[ls(x)]^sum[rs(x)]^val[x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushdown</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(r[x]) rev(ls(x)),rev(rs(x)),r[x]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> y=fa[x],z=fa[y],k=get(x);</span><br><span class="line">    !isroot(y)&amp;&amp;(ch[z][get(y)]=x),fa[x]=z;</span><br><span class="line">    ch[y][k]=ch[x][k^<span class="number">1</span>],fa[ch[x][k^<span class="number">1</span>]]=y;</span><br><span class="line">    ch[x][k^<span class="number">1</span>]=y,fa[y]=x;</span><br><span class="line">    pushup(y),pushup(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">splay</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> u=x,tp=<span class="number">0</span>;</span><br><span class="line">    st[++tp]=u;</span><br><span class="line">    <span class="keyword">while</span>(!isroot(u)) st[++tp]=u=fa[u];</span><br><span class="line">    <span class="keyword">while</span>(tp) pushdown(st[tp--]);</span><br><span class="line">    <span class="keyword">while</span>(!isroot(x)) &#123;</span><br><span class="line">        <span class="keyword">int</span> y=fa[x];</span><br><span class="line">        <span class="keyword">if</span>(!isroot(y)) rotate(get(x)==get(y)?y:x);</span><br><span class="line">        rotate(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">access</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> y=<span class="number">0</span>;x;x=fa[y=x]) splay(x),rs(x)=y,pushup(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">makeroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    access(x),splay(x),rev(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    access(x),splay(x);</span><br><span class="line">    pushdown(x);</span><br><span class="line">    <span class="keyword">while</span>(ls(x)) pushdown(x=ls(x));</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">split</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    makeroot(x),access(y),splay(y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">link</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    makeroot(x);</span><br><span class="line">    <span class="keyword">if</span>(findroot(y)!=x) fa[x]=y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cut</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    makeroot(x);</span><br><span class="line">    <span class="keyword">if</span>(findroot(y)==x&amp;&amp;fa[x]==y&amp;&amp;!rs(x)) fa[x]=ls(y)=<span class="number">0</span>,pushup(y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;val[i]);</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> opt,x,y;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;opt,&amp;x,&amp;y);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">0</span>) split(x,y),<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,sum[y]);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">1</span>) link(x,y);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">2</span>) cut(x,y);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">3</span>) splay(x),val[x]=y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <hr>
+                                        <h2 id="习题">
+                                            <a href="#习题" class="headerlink" title="习题"></a>习题</h2>
+                                        <blockquote>
+                                            <p>本文题单摘录自 <a href="https://www.cnblogs.com/flashhu/p/9498517.html" target="_blank" rel="noopener">FlashHu 的博客</a></p>
+                                        </blockquote>
+                                        <h3 id="维护链信息">
+                                            <a href="#维护链信息" class="headerlink" title="维护链信息"></a>维护链信息</h3>
+                                        <ul>
+                                            <li>&#9745; <a href="https://www.luogu.org/problemnew/show/P3690" target="_blank" rel="noopener">「Luogu 3690」Link Cut Tree</a>（<a href="https://hydingsy.github.io/articles/algorithm-Link-Cut-Tree/" target="_blank" rel="noopener">题解</a>）</li>
+                                            <li>&#9745; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2002" target="_blank" rel="noopener">「HNOI 2010」弹飞绵羊</a>（<a href="https://hydingsy.github.io/articles/problem-HNOI-2010-Bounce-Sheep/" target="_blank"
+                                                    rel="noopener">题解</a>）</li>
+                                            <li>&#9745; <a href="https://www.luogu.org/problemnew/show/P1501" target="_blank" rel="noopener">「Luogu 1501」Tree II</a>（<a href="https://hydingsy.github.io/articles/problem-Luogu-1501-Tree-II/" target="_blank" rel="noopener">题解</a>）</li>
+                                            <li>&#9745; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2243" target="_blank" rel="noopener">「SDOI 2011」染色</a></li>
+                                            <li>&#9744; <a href="https://www.luogu.org/problemnew/show/P4332" target="_blank" rel="noopener">「SHOI 2014」三叉神经树</a></li>
+                                        </ul>
+                                        <h3 id="维护连通性">
+                                            <a href="#维护连通性" class="headerlink" title="维护连通性"></a>维护连通性</h3>
+                                        <ul>
+                                            <li>&#9745; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2049" target="_blank" rel="noopener">「SDOI 2008」洞穴勘测</a></li>
+                                            <li>&#9745; <a href="https://www.luogu.org/problemnew/show/P3950" target="_blank" rel="noopener">「Luogu 3950」部落冲突</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=1969" target="_blank" rel="noopener">「AHOI 2005」航线规划</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=4998" target="_blank" rel="noopener">「BZOJ 4998」星球联盟</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2959" target="_blank" rel="noopener">「BZOJ 2959」长跑</a></li>
+                                        </ul>
+                                        <h3 id="维护边权">
+                                            <a href="#维护边权" class="headerlink" title="维护边权"></a>维护边权</h3>
+                                        <ul>
+                                            <li>&#9745; <a href="https://www.luogu.org/problemnew/show/P4172" target="_blank" rel="noopener">「WC 2006」水管局长</a>（<a href="https://www.lydsy.com/JudgeOnline/problem.php?id=2594" target="_blank" rel="noopener">加强版</a>）</li>
+                                            <li>&#9745; <a href="http://uoj.ac/problem/274" target="_blank" rel="noopener">「UOJ 274」温暖会指引我们前行</a></li>
+                                            <li>&#9745; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=1977" target="_blank" rel="noopener">「BZOJ 1977」次小生成树</a></li>
+                                            <li>&#9745; <a href="https://www.luogu.org/problemnew/show/P4234" target="_blank" rel="noopener">「Luogu 4234」最小差值生成树</a></li>
+                                            <li>&#9745; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=3669" target="_blank" rel="noopener">「NOI 2014」魔法森林</a></li>
+                                        </ul>
+                                        <h3 id="维护子树信息">
+                                            <a href="#维护子树信息" class="headerlink" title="维护子树信息"></a>维护子树信息</h3>
+                                        <ul>
+                                            <li>&#9745; <a href="http://cogs.pro:8080/cogs/problem/problem.php?pid=2701" target="_blank" rel="noopener">「COGS 2701」动态树</a></li>
+                                            <li>&#9745; <a href="https://www.luogu.org/problemnew/show/P4219" target="_blank" rel="noopener">「BJOI 2014」大融合</a></li>
+                                            <li>&#9744; <a href="https://www.luogu.org/problemnew/show/U19464" target="_blank" rel="noopener">「Luogu U19464」山村游历</a></li>
+                                            <li>&#9744; <a href="https://www.luogu.org/problemnew/show/P4299" target="_blank" rel="noopener">「Luogu 4299」首都</a></li>
+                                            <li>&#9744; <a href="https://www.spoj.com/problems/QTREE5/" target="_blank" rel="noopener">「SPOJ 2939」QTREE5 - Query on a tree V</a></li>
+                                            <li>&#9744; <a href="https://loj.ac/problem/558" target="_blank" rel="noopener">「LOJ 558」我们的 CPU 遭到攻击</a></li>
+                                        </ul>
+                                        <h3 id="维护树上染色连通块">
+                                            <a href="#维护树上染色连通块" class="headerlink" title="维护树上染色连通块"></a>维护树上染色连通块</h3>
+                                        <ul>
+                                            <li>&#9744; <a href="https://www.luogu.org/problemnew/show/P2173" target="_blank" rel="noopener">「ZJOI 2012」网络</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=4817" target="_blank" rel="noopener">「SDOI 2017」树点涂色</a></li>
+                                            <li>&#9744; <a href="https://www.spoj.com/problems/QTREE6/" target="_blank" rel="noopener">「SPOJ 16549」QTREE6 - Query on a tree VI</a></li>
+                                            <li>&#9744; <a href="https://www.spoj.com/problems/QTREE7/" target="_blank" rel="noopener">「SPOJ 16580」QTREE7 - Query on a tree VII</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=3914" target="_blank" rel="noopener">「BZOJ 3914」Jabby’s shadows</a></li>
+                                        </ul>
+                                        <h3 id="特殊题型">
+                                            <a href="#特殊题型" class="headerlink" title="特殊题型"></a>特殊题型</h3>
+                                        <ul>
+                                            <li>&#9744; <a href="https://www.luogu.org/problemnew/show/P3613" target="_blank" rel="noopener">「Luogu 3613」睡觉困难综合征</a></li>
+                                            <li>&#9744; <a href="http://uoj.ac/problem/207" target="_blank" rel="noopener">「UOJ 207」共价大爷游长沙</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=4573" target="_blank" rel="noopener">「ZJOI 2016」大森林</a></li>
+                                            <li>&#9744; <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=5212" target="_blank" rel="noopener">「ZJOI 2018」历史</a></li>
+                                            <li>&#9744; <a href="https://www.luogu.org/problemnew/show/P4546" target="_blank" rel="noopener">「Luogu 4546」在美妙的数学王国中畅游</a></li>
+                                        </ul>
+
+
+                                    </div>
+
+
+
+                                    <div>
+
+
+
+                                    </div>
+
+
+
+
+
+                                    <div>
+                                        <ul class="post-copyright">
+                                            <li class="post-copyright-author">
+                                                <strong>本文作者：</strong> Siyuan
+                                            </li>
+                                            <li class="post-copyright-link">
+                                                <strong>本文链接：</strong>
+                                                <a href="http://hydingsy.github.io/articles/algorithm-Link-Cut-Tree/" title="「算法笔记」Link-Cut Tree">http://hydingsy.github.io/articles/algorithm-Link-Cut-Tree/</a>
+                                            </li>
+                                            <li class="post-copyright-license">
+                                                <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+
+                                    <footer class="post-footer">
+
+                                        <div class="post-tags">
+
+                                            <a href="../../tags/%e7%ae%97%e6%b3%95%e7%ac%94%e8%ae%b0/index.html" rel="tag"><i class="fa fa-tag"></i> 算法笔记</a>
+
+                                            <a href="../../tags/%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84/index.html" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+
+                                            <a href="../../tags/LCT/index.html" rel="tag"><i class="fa fa-tag"></i> LCT</a>
+
+                                            <a href="../../tags/Splay/index.html" rel="tag"><i class="fa fa-tag"></i> Splay</a>
+
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="post-nav">
+                                            <div class="post-nav-next post-nav-item">
+
+                                                <a href="../algorithm-Splay-2/index.html" rel="next" title="「算法笔记」Splay 维护序列">
+                                                    <i class="fa fa-chevron-left"></i> 「算法笔记」Splay 维护序列
+                                                </a>
+
+                                            </div>
+
+                                            <span class="post-nav-divider"></span>
+
+                                            <div class="post-nav-prev post-nav-item">
+
+                                                <a href="../problem-Codeforces-1110E-Magic-Stones/index.html" rel="prev" title="「Codeforces 1110E」Magic Stones">
+                「Codeforces 1110E」Magic Stones <i class="fa fa-chevron-right"></i>
+              </a>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </footer>
+                                </div>
+
+
+
+                            </article>
+
+
+
+                            <div class="post-spread">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="comments" id="comments">
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="sidebar-toggle">
+                    <div class="sidebar-toggle-line-wrap">
+                        <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+                    </div>
+                </div>
+
+                <aside id="sidebar" class="sidebar">
+
+                    <div class="sidebar-inner">
+
+
+
+
+                        <ul class="sidebar-nav motion-element">
+                            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+                                文章目录
+                            </li>
+                            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+                                站点概览
+                            </li>
+                        </ul>
+
+
+                        <section class="site-overview-wrap sidebar-panel">
+                            <div class="site-overview">
+                                <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+
+                                    <img class="site-author-image" itemprop="image" src="../../images/avatar.png" alt="Siyuan" />
+
+                                    <p class="site-author-name" itemprop="name">Siyuan</p>
+                                    <p class="site-description motion-element" itemprop="description">Chasing Dream OIer</p>
+                                </div>
+
+                                <nav class="site-state motion-element">
+
+
+                                    <div class="site-state-item site-state-posts">
+
+                                        <a href="../../archives/index.html">
+
+                                            <span class="site-state-item-count">165</span>
+                                            <span class="site-state-item-name">日志</span>
+                                        </a>
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="site-state-item site-state-tags">
+                                        <a href="../../tags/index-2.html">
+                                            <span class="site-state-item-count">147</span>
+                                            <span class="site-state-item-name">标签</span>
+                                        </a>
+                                    </div>
+
+
+                                </nav>
+
+
+                                <div class="feed-link motion-element">
+                                    <a href="../../atom.xml" rel="alternate">
+                                        <i class="fa fa-rss"></i> RSS
+                                    </a>
+                                </div>
+
+
+
+                                <div class="links-of-author motion-element">
+
+                                    <span class="links-of-author-item">
+                    <a href="https://github.com/hydingsy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://codeforces.com/profile/SiyuanQAQ" target="_blank" title="Codeforces">
+                      
+                        <i class="fa fa-fw fa-code"></i>Codeforces</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=294873684" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="mailto:294873684@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/dingsiyuan" target="_blank" title="Zhihu">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>Zhihu</a>
+                  </span>
+
+                                    <span class="links-of-author-item">
+                    <a href="https://t.me/hydingsy" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </section>
+
+
+                        <!--noindex-->
+                        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+                            <div class="post-toc">
+
+
+
+
+
+
+                                <div class="post-toc-content">
+                                    <ol class="nav">
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#链剖分"><span class="nav-number">2.</span> <span class="nav-text">链剖分</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#重链剖分"><span class="nav-number">2.1.</span> <span class="nav-text">重链剖分</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#长链剖分"><span class="nav-number">2.2.</span> <span class="nav-text">长链剖分</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#实链剖分"><span class="nav-number">2.3.</span> <span class="nav-text">实链剖分</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">3.</span> <span class="nav-text">性质</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#操作"><span class="nav-number">4.</span> <span class="nav-text">操作</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#access-x"><span class="nav-number">4.1.</span> <span class="nav-text">access(x)</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#makeroot-x"><span class="nav-number">4.2.</span> <span class="nav-text">makeroot(x)</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#findroot-x"><span class="nav-number">4.3.</span> <span class="nav-text">findroot(x)</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#split-x-y"><span class="nav-number">4.4.</span> <span class="nav-text">split(x,y)</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#link-x-y"><span class="nav-number">4.5.</span> <span class="nav-text">link(x,y)</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#cut-x-y"><span class="nav-number">4.6.</span> <span class="nav-text">cut(x,y)</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">5.</span> <span class="nav-text">区别</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#rotate-x"><span class="nav-number">5.1.</span> <span class="nav-text">rotate(x)</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#splay-x"><span class="nav-number">5.2.</span> <span class="nav-text">splay(x)</span></a></li>
+                                            </ol>
+                                        </li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li>
+                                        <li class="nav-item nav-level-2"><a class="nav-link" href="#习题"><span class="nav-number">7.</span> <span class="nav-text">习题</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#维护链信息"><span class="nav-number">7.1.</span> <span class="nav-text">维护链信息</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#维护连通性"><span class="nav-number">7.2.</span> <span class="nav-text">维护连通性</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#维护边权"><span class="nav-number">7.3.</span> <span class="nav-text">维护边权</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#维护子树信息"><span class="nav-number">7.4.</span> <span class="nav-text">维护子树信息</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#维护树上染色连通块"><span class="nav-number">7.5.</span> <span class="nav-text">维护树上染色连通块</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link" href="#特殊题型"><span class="nav-number">7.6.</span> <span class="nav-text">特殊题型</span></a></li>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                </div>
+
+
+                            </div>
+                        </section>
+                        <!--/noindex-->
+
+
+
+
+                    </div>
+                </aside>
+
+
+
+            </div>
+        </main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+                    <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+                    <span class="author" itemprop="copyrightHolder">Siyuan</span>
+
+
+                    <span class="post-meta-divider">|</span>
+                    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+
+                    <span class="post-meta-item-text">Site words total count&#58;</span>
+
+                    <span title="Site words total count">145.4k</span>
+
+                </div>
+
+
+                <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io/">Hexo</a> 强力驱动</div>
+
+
+
+                <span class="post-meta-divider">|</span>
+
+
+
+                <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+                <div class="busuanzi-count">
+                    <script async src="../../../busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+                    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+                    <i class="fa fa-eye"></i>
+                    </span>
+
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </footer>
+
+
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i>
+
+            <span id="scrollpercent"><span>0</span>%</span>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+            window.Promise = null;
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery/index62ba.js?v=2.1.3"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.minc924.js?v=1.0.6"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyloada045.js?v=1.9.7"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/velocity/velocity.ui.min23cd.js?v=1.2.1"></script>
+
+
+
+
+    <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack8cbb.js?v=2.1.5"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/utilsf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/motionf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/affixf99e.js?v=5.1.4"></script>
+
+    <script type="text/javascript" src="../../js/src/schemes/piscesf99e.js?v=5.1.4"></script>
+
+
+
+
+    <script type="text/javascript" src="../../js/src/scrollspyf99e.js?v=5.1.4"></script>
+    <script type="text/javascript" src="../../js/src/post-detailsf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="../../js/src/bootstrapf99e.js?v=5.1.4"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/3.0.4/av-min.js_%3b%20filename_%3dutf-8%27%27av-min.js"></script>
+    <script src="../../../unpkg.com/valine%401.4.14/dist/Valine.min.js"></script>
+
+    <script type="text/javascript">
+        var GUEST = ['nick', 'mail', 'link'];
+        var guest = 'nick,mail,link';
+        guest = guest.split(',').filter(item => {
+            return GUEST.indexOf(item) > -1;
+        });
+        new Valine({
+            el: '#comments',
+            verify: false,
+            notify: false,
+            appId: '9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz',
+            appKey: '9hUlOM7niDIXYhbgCubnJHyU',
+            placeholder: 'ヾﾉ≧∀≦)o 来啊，快活啊！',
+            avatar: 'mm',
+            guest_info: guest,
+            pageSize: '10' || 10,
+        });
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        // Popup Window;
+        var isfetched = false;
+        var isXml = true;
+        // Search DB path;
+        var search_path = "search.html";
+        if (search_path.length === 0) {
+            search_path = "search.html";
+        } else if (/json$/i.test(search_path)) {
+            isXml = false;
+        }
+        var path = "/" + search_path;
+        // monitor main search box;
+
+        var onPopupClose = function(e) {
+            $('.popup').hide();
+            $('#local-search-input').val('');
+            $('.search-result-list').remove();
+            $('#no-result').remove();
+            $(".local-search-pop-overlay").remove();
+            $('body').css('overflow', '');
+        }
+
+        function proceedsearch() {
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+                .css('overflow', 'hidden');
+            $('.search-popup-overlay').click(onPopupClose);
+            $('.popup').toggle();
+            var $localSearchInput = $('#local-search-input');
+            $localSearchInput.attr("autocapitalize", "none");
+            $localSearchInput.attr("autocorrect", "off");
+            $localSearchInput.focus();
+        }
+
+        // search function;
+        var searchFunc = function(path, search_id, content_id) {
+            'use strict';
+
+            // start loading animation
+            $("body")
+                .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                    '<div id="search-loading-icon">' +
+                    '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                    '</div>' +
+                    '</div>')
+                .css('overflow', 'hidden');
+            $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+            $.ajax({
+                url: path,
+                dataType: isXml ? "xml" : "json",
+                async: true,
+                success: function(res) {
+                    // get the contents from search data
+                    isfetched = true;
+                    $('.popup').detach().appendTo('.header-inner');
+                    var datas = isXml ? $("entry", res).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get() : res;
+                    var input = document.getElementById(search_id);
+                    var resultContent = document.getElementById(content_id);
+                    var inputEventFunction = function() {
+                        var searchText = input.value.trim().toLowerCase();
+                        var keywords = searchText.split(/[\s\-]+/);
+                        if (keywords.length > 1) {
+                            keywords.push(searchText);
+                        }
+                        var resultItems = [];
+                        if (searchText.length > 0) {
+                            // perform local searching
+                            datas.forEach(function(data) {
+                                var isMatch = false;
+                                var hitCount = 0;
+                                var searchTextCount = 0;
+                                var title = data.title.trim();
+                                var titleInLowerCase = title.toLowerCase();
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                var contentInLowerCase = content.toLowerCase();
+                                var articleUrl = decodeURIComponent(data.url);
+                                var indexOfTitle = [];
+                                var indexOfContent = [];
+                                // only match articles with not empty titles
+                                if (title != '') {
+                                    keywords.forEach(function(keyword) {
+                                        function getIndexByWord(word, text, caseSensitive) {
+                                            var wordLen = word.length;
+                                            if (wordLen === 0) {
+                                                return [];
+                                            }
+                                            var startPosition = 0,
+                                                position = [],
+                                                index = [];
+                                            if (!caseSensitive) {
+                                                text = text.toLowerCase();
+                                                word = word.toLowerCase();
+                                            }
+                                            while ((position = text.indexOf(word, startPosition)) > -1) {
+                                                index.push({
+                                                    position: position,
+                                                    word: word
+                                                });
+                                                startPosition = position + wordLen;
+                                            }
+                                            return index;
+                                        }
+
+                                        indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                        indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                                    });
+                                    if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                        isMatch = true;
+                                        hitCount = indexOfTitle.length + indexOfContent.length;
+                                    }
+                                }
+
+                                // show search results
+
+                                if (isMatch) {
+                                    // sort index by position of keyword
+
+                                    [indexOfTitle, indexOfContent].forEach(function(index) {
+                                        index.sort(function(itemLeft, itemRight) {
+                                            if (itemRight.position !== itemLeft.position) {
+                                                return itemRight.position - itemLeft.position;
+                                            } else {
+                                                return itemLeft.word.length - itemRight.word.length;
+                                            }
+                                        });
+                                    });
+
+                                    // merge hits into slices
+
+                                    function mergeIntoSlice(text, start, end, index) {
+                                        var item = index[index.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        var hits = [];
+                                        var searchTextCountInSlice = 0;
+                                        while (position + word.length <= end && index.length != 0) {
+                                            if (word === searchText) {
+                                                searchTextCountInSlice++;
+                                            }
+                                            hits.push({
+                                                position: position,
+                                                length: word.length
+                                            });
+                                            var wordEnd = position + word.length;
+
+                                            // move to next position of hit
+
+                                            index.pop();
+                                            while (index.length != 0) {
+                                                item = index[index.length - 1];
+                                                position = item.position;
+                                                word = item.word;
+                                                if (wordEnd > position) {
+                                                    index.pop();
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        searchTextCount += searchTextCountInSlice;
+                                        return {
+                                            hits: hits,
+                                            start: start,
+                                            end: end,
+                                            searchTextCount: searchTextCountInSlice
+                                        };
+                                    }
+
+                                    var slicesOfTitle = [];
+                                    if (indexOfTitle.length != 0) {
+                                        slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                                    }
+
+                                    var slicesOfContent = [];
+                                    while (indexOfContent.length != 0) {
+                                        var item = indexOfContent[indexOfContent.length - 1];
+                                        var position = item.position;
+                                        var word = item.word;
+                                        // cut out 100 characters
+                                        var start = position - 20;
+                                        var end = position + 80;
+                                        if (start < 0) {
+                                            start = 0;
+                                        }
+                                        if (end < position + word.length) {
+                                            end = position + word.length;
+                                        }
+                                        if (end > content.length) {
+                                            end = content.length;
+                                        }
+                                        slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                                    }
+
+                                    // sort slices in content by search text's count and hits' count
+
+                                    slicesOfContent.sort(function(sliceLeft, sliceRight) {
+                                        if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                            return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                        } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                            return sliceRight.hits.length - sliceLeft.hits.length;
+                                        } else {
+                                            return sliceLeft.start - sliceRight.start;
+                                        }
+                                    });
+
+                                    // select top N slices in content
+
+                                    var upperBound = parseInt('1');
+                                    if (upperBound >= 0) {
+                                        slicesOfContent = slicesOfContent.slice(0, upperBound);
+                                    }
+
+                                    // highlight title and content
+
+                                    function highlightKeyword(text, slice) {
+                                        var result = '';
+                                        var prevEnd = slice.start;
+                                        slice.hits.forEach(function(hit) {
+                                            result += text.substring(prevEnd, hit.position);
+                                            var end = hit.position + hit.length;
+                                            result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                            prevEnd = end;
+                                        });
+                                        result += text.substring(prevEnd, slice.end);
+                                        return result;
+                                    }
+
+                                    var resultItem = '';
+
+                                    if (slicesOfTitle.length != 0) {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                                    } else {
+                                        resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                                    }
+
+                                    slicesOfContent.forEach(function(slice) {
+                                        resultItem += "<a href='" + articleUrl + "'>" +
+                                            "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                            "...</p>" + "</a>";
+                                    });
+
+                                    resultItem += "</li>";
+                                    resultItems.push({
+                                        item: resultItem,
+                                        searchTextCount: searchTextCount,
+                                        hitCount: hitCount,
+                                        id: resultItems.length
+                                    });
+                                }
+                            })
+                        };
+                        if (keywords.length === 1 && keywords[0] === "") {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+                        } else if (resultItems.length === 0) {
+                            resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+                        } else {
+                            resultItems.sort(function(resultLeft, resultRight) {
+                                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                    return resultRight.searchTextCount - resultLeft.searchTextCount;
+                                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                    return resultRight.hitCount - resultLeft.hitCount;
+                                } else {
+                                    return resultRight.id - resultLeft.id;
+                                }
+                            });
+                            var searchResultList = '<ul class=\"search-result-list\">';
+                            resultItems.forEach(function(result) {
+                                searchResultList += result.item;
+                            })
+                            searchResultList += "</ul>";
+                            resultContent.innerHTML = searchResultList;
+                        }
+                    }
+
+                    if ('auto' === 'auto') {
+                        input.addEventListener('input', inputEventFunction);
+                    } else {
+                        $('.search-icon').click(inputEventFunction);
+                        input.addEventListener('keypress', function(event) {
+                            if (event.keyCode === 13) {
+                                inputEventFunction();
+                            }
+                        });
+                    }
+
+                    // remove loading animation
+                    $(".local-search-pop-overlay").remove();
+                    $('body').css('overflow', '');
+
+                    proceedsearch();
+                }
+            });
+        }
+
+        // handle and trigger popup window;
+        $('.popup-trigger').click(function(e) {
+            e.stopPropagation();
+            if (isfetched === false) {
+                searchFunc(path, 'local-search-input', 'local-search-result');
+            } else {
+                proceedsearch();
+            };
+        });
+
+        $('.popup-btn-close').click(onPopupClose);
+        $('.popup').click(function(e) {
+            e.stopPropagation();
+        });
+        $(document).on('keyup', function(event) {
+            var shouldDismissSearchPopup = event.which === 27 &&
+                $('.search-popup').is(':visible');
+            if (shouldDismissSearchPopup) {
+                onPopupClose();
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+    <script src="../../../cdn1.lncld.net/static/js/av-core-mini-0.6.4.js_%3b%20filename_%3dutf-8%27%27av-core-mini-0.6.4.js"></script>
+    <script>
+        AV.initialize("9xU97Ie2940nGWAHvUWCiNHu-gzGzoHsz", "9hUlOM7niDIXYhbgCubnJHyU");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            var entries = [];
+            var $visitors = $(".leancloud_visitors");
+
+            $visitors.each(function() {
+                entries.push($(this).attr("id").trim());
+            });
+
+            query.containedIn('url', entries);
+            query.find()
+                .done(function(results) {
+                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+                    if (results.length === 0) {
+                        $visitors.find(COUNT_CONTAINER_REF).text(0);
+                        return;
+                    }
+
+                    for (var i = 0; i < results.length; i++) {
+                        var item = results[i];
+                        var url = item.get('url');
+                        var time = item.get('time');
+                        var element = document.getElementById(url);
+
+                        $(element).find(COUNT_CONTAINER_REF).text(time);
+                    }
+                    for (var i = 0; i < entries.length; i++) {
+                        var url = entries[i];
+                        var element = document.getElementById(url);
+                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                        if (countSpan.text() == '') {
+                            countSpan.text(0);
+                        }
+                    }
+                })
+                .fail(function(object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                });
+        }
+
+        function addCount(Counter) {
+            var $visitors = $(".leancloud_visitors");
+            var url = $visitors.attr('id').trim();
+            var title = $visitors.attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+
+            query.equalTo("url", url);
+            query.find({
+                success: function(results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function(counter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                            },
+                            error: function(counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        /* Set ACL */
+                        var acl = new AV.ACL();
+                        acl.setPublicReadAccess(true);
+                        acl.setPublicWriteAccess(true);
+                        newcounter.setACL(acl);
+                        /* End Set ACL */
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function(newcounter) {
+                                var $element = $(document.getElementById(url));
+                                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                            },
+                            error: function(newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+
+        $(function() {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+
+
+
+
+
+
+    <script>
+        (function() {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = '../../../zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = '../../../push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], processEscapes: true, skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] } });
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for (i=0; i
+        < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+            <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJaxdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <!-- hexo-inject:begin -->
+            <!-- Begin: Injected MathJax -->
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+            </script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Queue(function() { var all = MathJax.Hub.getAllJax(), i; for(i=0; i
+                < all.length; i +=1 ) { all[i].SourceElement().parentNode.className +=' has-jax' ; } }); </script>
+
+                    <script type="text/javascript" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+                    </script>
+                    <!-- End: Injected MathJax -->
+                    <!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>
